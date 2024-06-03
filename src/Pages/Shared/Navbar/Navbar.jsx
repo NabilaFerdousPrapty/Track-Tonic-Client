@@ -1,6 +1,7 @@
 import  { useState } from 'react';
 import img from '../../../assets/img.png'
 import { Link, NavLink } from 'react-router-dom';
+import { Button } from "flowbite-react";
 
 import Dropdown from './Dropdown/Dropdown';
 const Navbar = () => {
@@ -64,13 +65,11 @@ const Navbar = () => {
                         <div className="flex items-center mt-4 lg:mt-0 justify-center">
                            <Dropdown/>
                            
-                            {/* <button type="button" className="flex items-center focus:outline-none" aria-label="toggle profile dropdown">
-                                <div className="w-8 h-8 overflow-hidden border-2 border-gray-400 rounded-full">
-                                    <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" className="object-cover w-full h-full" alt="avatar" />
-                                </div>
+                            <Button color="gray" type="button" className="flex items-center focus:outline-none bg-[#17ACAC] text-white " aria-label="toggle profile dropdown">
+                               
 
-                                <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">Khatab wedaa</h3>
-                            </button> */}
+                              Login
+                            </Button>
                         </div>
                     </div>
                 </div>
