@@ -62,14 +62,18 @@ const Navbar = () => {
                             
                         </div>
 
-                        <div className="flex items-center mt-4 lg:mt-0 justify-center">
+                        <div className="flex items-center mt-4 lg:mt-0 justify-center gap-1">
                            <Dropdown/>
+
                            
+                            <Link to={'/login'}>
                             <Button color="gray" type="button" className="flex items-center focus:outline-none bg-[#17ACAC] text-white " aria-label="toggle profile dropdown">
                                
 
                               Login
                             </Button>
+                            </Link>
+                           
                         </div>
                     </div>
                 </div>

@@ -11,8 +11,8 @@ const Features = () => {
         <p className="text-xl text-gray-600 font-semibold my-5">Your journey to optimal health and fitness starts here</p>
       </div>
       <section className="p-4 lg:p-8 border-4 border-blue-300 rounded-2xl">
-        <div className="container mx-auto space-y-12 bg-sky-50 p-4 rounded-lg">
-          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row">
+        <div className="container mx-auto space-y-12 bg-sky-50 p-4 rounded-lg ">
+          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row hover:bg-slate-300 p-4">
             <img
               src="https://i.ibb.co/y8p9wgF/freepik-flat-geometric-gym-training-banner-20240603155759-O4-GY.png"
               alt=""
@@ -33,7 +33,7 @@ const Features = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">
+          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse hover:bg-slate-300 p-4">
             <img
               src="https://i.ibb.co/Ws58gSj/freepik-gradient-flat-join-us-gym-rectangle-banner-202406031547356e-Lk.png"
               alt=""
@@ -54,7 +54,7 @@ const Features = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row ">
+          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row hover:bg-slate-300 p-4">
             <img
               src="https://i.ibb.co/s9w1Rdz/freepik-hand-drawn-super-sale-fitness-gym-banner-20240603155058-Xk-HQ.png"
               alt=""
@@ -75,7 +75,7 @@ const Features = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse">
+          <div className="flex flex-col overflow-hidden rounded-md shadow-sm lg:flex-row-reverse hover:bg-slate-300 p-4  ">
             <img
               src="https://i.ibb.co/khvKPJC/5184243.jpg"
               alt=""

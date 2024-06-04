@@ -14,7 +14,7 @@ const Dropdown = () => {
         onClick={toggleDropdown}
         className="relative z-10 flex items-center p-2 text-sm  bg-white border border-transparent rounded-md focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring  focus:outline-none"
       >
-        <span className="mx-1">
+        <span className="">
             <AiOutlineLogin className='text-3xl' />
         </span>
         <svg className="w-5 h-5 mx-1" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
