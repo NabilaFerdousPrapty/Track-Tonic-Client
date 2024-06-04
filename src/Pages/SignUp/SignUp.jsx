@@ -4,16 +4,15 @@ import logo from '../../assets/img.png';
 const SignUp = () => {
     return (
         <div className=" h-screen flex justify-center my-10 border-2 border-green-100 p-5 rounded-2xl">
-            <div
-                className="hidden lg:block lg:w-2/3 bg-cover rounded-lg"
-                style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)' }}
-            >
-                <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+            <div      className="hidden lg:block lg:w-[55%] bg-cover rounded-lg"
+                style={{ backgroundImage: 'url(https://i.ibb.co/K07sg7r/Data-security-05.jpg)' }}        >
+                <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 text-center justify-center">
                     <div>
-                        <h2 className="text-2xl font-bold text-white sm:text-3xl">Meraki UI</h2>
-                        <p className="max-w-xl mt-3 text-gray-300">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. In autem ipsa, nulla laboriosam
-                            dolores, repellendus perferendis libero suscipit nam temporibus molestiae
+                        <h2 className="text-2xl font-bold  sm:text-3xl">
+                            Track Tonic
+                        </h2>
+                        <p className="max-w-xl mt-3 text-gray-700 font-semibold">
+                           Fitness is not about being better than someone else, it's about being better than you used to be.Congratulation on taking the first step towards a healthier lifestyle. So what are you waiting for? Let's get started.
                         </p>
                     </div>
                 </div>
@@ -25,7 +24,9 @@ const SignUp = () => {
                         <div className="flex justify-center mx-auto">
                             <img className="w-auto lg:h-20 h-8" src={logo}alt="Meraki UI Logo" />
                         </div>
-                        <p className="mt-3 text-gray-500 dark:text-gray-300">Sign in to access your account</p>
+                        <p className="mt-3 text-gray-500 dark:text-gray-300">
+                            Welcome to Track Tonic
+                        </p>
                     </div>
 
                     <div className="mt-8">
