@@ -1,7 +1,17 @@
-import React from "react";
+
 import { Link } from "react-router-dom";
 import logo from "../../assets/img.png";
+import { useForm } from "react-hook-form"
 const SignUp = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => console.log(data)
+
   return (
     <div className=" h-screen flex flex-row-reverse justify-center my-10 border-2 border-green-100 p-5 rounded-2xl">
       <div
@@ -39,7 +49,7 @@ const SignUp = () => {
           </div>
 
           <div className="mt-8">
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <label
                   htmlFor="email"
@@ -48,12 +58,14 @@ const SignUp = () => {
                   Name of the User
                 </label>
                 <input
+                {...register("name", { required: true })}
                   type="text"
                   name="name"
                   id="name"
                   placeholder="example name"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
+                 {errors.name && <span className="text-red-700">This field is required</span>}
               </div>
               <div>
                 <label
@@ -63,15 +75,34 @@ const SignUp = () => {
                   Email Address
                 </label>
                 <input
+                {...register("email", { required: true })}
                   type="email"
                   name="email"
                   id="email"
                   placeholder="example@example.com"
                   className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                 />
+                 {errors.email && <span className="text-red-700">This field is required</span>}
               </div>
-              <div className="flex md:flex-row flex-col justify-between items-center text-left">
-                <div className="mt-6">
+              <div>
+                <label
+                  htmlFor="photo"
+                  className="block mb-2 text-sm text-gray-600 dark:text-gray-200"
+                >
+                  Photo Url
+                </label>
+                <input
+                {...register("photo", { required: true })}
+                  type="url"
+                  name="photo"
+                  id="photo"
+                  placeholder="example@example.com"
+                  className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+                />
+                 {errors.photo && <span className="text-red-700">This field is required</span>}
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2">
+                <div className="">
                   <div className="flex justify-between mb-2">
                     <label
                       htmlFor="password"
@@ -81,14 +112,18 @@ const SignUp = () => {
                     </label>
                   </div>
                   <input
+                  {...register("password", { required: true })}
                     type="password"
                     name="password"
                     id="password"
                     placeholder="Your Password"
                     className="block w-full md:px-10 px-20  py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
+                  {
+                    errors.password && <span className="text-red-700">This field is required</span>
+                  }
                 </div>
-                <div className="mt-6">
+                <div className="">
                   <div className="flex justify-between mb-2">
                     <label
                       htmlFor="password"
@@ -98,18 +133,22 @@ const SignUp = () => {
                     </label>
                   </div>
                   <input
+                  {...register("confirmPassword", { required: true })}
                     type="password"
-                    name="password"
-                    id="password"
-                    placeholder="Your Password"
+                    name="confirmPassword"
+                    id="confirmPassword"
+                    placeholder="Confirm Your Password"
                     className="block w-full md:px-10 px-20 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
                   />
+                  {
+                    errors.confirmPassword && <span className="text-red-700">This field is required</span>
+                  }
                 </div>
               </div>
 
                 
               <div className="mt-6">
-                <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-[#17acac] rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                <button type="submit" className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-[#17acac] rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                   Sign up
                 </button>
               </div>
