@@ -12,7 +12,7 @@ const Login = () => {
 
   const onSubmit = (data) => console.log(data)
   return (
-    <div className=" my-10 rounded-xl">
+    <div className=" my-10 rounded-xl font-merriweather">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-6xl">
         <div
           className="hidden bg-cover lg:block lg:w-1/2"
@@ -117,7 +117,7 @@ const Login = () => {
           </div>
 
           <div className="mt-6">
-            <Button color='grey' className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform  rounded-lg  focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 bg-[#17ACAC] text-white">
+            <Button type="submit" color='grey' className="w-full px-6 py-3 text-sm font-medium tracking-wide capitalize transition-colors duration-300 transform  rounded-lg  focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 bg-[#17ACAC] text-white">
               Sign In
             </Button>
           </div>

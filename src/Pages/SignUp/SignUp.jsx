@@ -13,17 +13,17 @@ const SignUp = () => {
   const onSubmit = (data) => console.log(data)
 
   return (
-    <div className=" h-screen flex flex-row-reverse justify-center my-10 border-2 border-green-100 p-5 rounded-2xl">
+    <div className=" h-screen flex flex-row-reverse justify-center my-10 border-2 border-green-100 p-5 rounded-2xl font-merriweather">
       <div
-        className="hidden lg:block lg:w-[45%] bg-cover rounded-lg"
+        className="hidden lg:block lg:w-[45%] bg-cover rounded-2xl"
         style={{
           backgroundImage: "url(https://i.ibb.co/K07sg7r/Data-security-05.jpg)",
         }}
       >
-        <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40 text-center justify-center">
+        <div className="flex items-center h-full px-20 bg-gray-400 bg-opacity-40 text-center justify-center rounded-2xl">
           <div>
             <h2 className="text-2xl font-bold  sm:text-3xl">Track Tonic</h2>
-            <p className="max-w-xl mt-3 text-gray-700 font-semibold">
+            <p className="max-w-xl mt-3 text-slate-700 font-semibold">
               Fitness is not about being better than someone else, it's about
               being better than you used to be.Congratulation on taking the
               first step towards a healthier lifestyle. So what are you waiting

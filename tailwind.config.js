@@ -7,7 +7,13 @@ export default {
     flowbite.content(),
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: { 
+        "manrope" :["Manrope", "sans-serif"],
+        'merriweather': ["Merriweather", 'serif']
+    } 
+    },
+    
   },
   plugins: [
     flowbite.plugin(),
