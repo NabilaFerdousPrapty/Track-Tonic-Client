@@ -2,7 +2,13 @@ import { useForm } from "react-hook-form"
 import logo from "../../assets/img.png";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/UseAuth";
 const Login = () => {
+  const {
+    signInWithEmail,
+    LogOut,
+    signInWithGoogle
+  }=useAuth();
   const {
     register,
     handleSubmit,
@@ -10,7 +16,12 @@ const Login = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit ={
+   
+   
+
+
+  }
   return (
     <div className=" my-10 rounded-xl font-merriweather">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-6xl">
@@ -73,7 +84,8 @@ const Login = () => {
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
           </div>
 
-          <div className="mt-4">
+        <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mt-4">
             <label
               className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
               htmlFor="LoggingEmailAddress"
@@ -115,6 +127,7 @@ const Login = () => {
                     errors.password && <span className="text-red-700">This field is required</span>
                   }
           </div>
+        </form>
 
           <div className="mt-6">
             <Button type="submit" color='grey' className="w-full px-6 py-3 text-sm font-medium tracking-wide capitalize transition-colors duration-300 transform  rounded-lg  focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 bg-[#17ACAC] text-white">
