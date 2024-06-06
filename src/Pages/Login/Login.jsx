@@ -1,8 +1,16 @@
-import React from "react";
+import { useForm } from "react-hook-form"
 import logo from "../../assets/img.png";
 import { Button } from "flowbite-react";
 import { Link } from "react-router-dom";
 const Login = () => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm()
+
+  const onSubmit = (data) => console.log(data)
   return (
     <div className=" my-10 rounded-xl">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-6xl">
@@ -73,10 +81,12 @@ const Login = () => {
               Email Address
             </label>
             <input
+            {...register("email", { required: true })}
               id="LoggingEmailAddress"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
               type="email"
             />
+             {errors.email && <span className="text-red-700">This field is required</span>}
           </div>
 
           <div className="mt-4">
@@ -96,10 +106,14 @@ const Login = () => {
             </div>
 
             <input
+             {...register("password", { required: true })}
               id="loggingPassword"
               className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
               type="password"
             />
+              {
+                    errors.password && <span className="text-red-700">This field is required</span>
+                  }
           </div>
 
           <div className="mt-6">
