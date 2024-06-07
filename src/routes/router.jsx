@@ -29,6 +29,12 @@ import AllTrainers from '../Pages/AllTrainers/AllTrainers';
           path:'/allTrainers',
           element:<AllTrainers/>
 
+        },{
+          path:'/dashboard',
+          element:<Home/>
+        },{
+          path:'/community',
+          element:<Home/>
         }
       ]
     },
