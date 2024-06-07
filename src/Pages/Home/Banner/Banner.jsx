@@ -36,7 +36,7 @@ const Banner = () => {
               backgroundRepeat: "no-repeat",
             }}
           >
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center ">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center bg-purple-100 p-6 rounded-2xl">
               <h1 className="lg:text-4xl text-2xl font-bold lg:my-5">
                 Welcome to Track Tonic
               </h1>
@@ -45,7 +45,7 @@ const Banner = () => {
               </p>
 
               <Link
-                to="/queries"
+                to="/allClasses"
                 className="bg-white text-black px-4 py-2 rounded-md mt-4 lg:mt-8 inline-block"
               >
                 All Classes
@@ -64,7 +64,7 @@ const Banner = () => {
               backgroundRepeat: "no-repeat",
             }}
           >
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-800 rounded-full p-10 ">
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center text-gray-800 rounded-full p-10 bg-cyan-100 rounded-2xl">
               <h1 className="lg:text-4xl text-2xl font-bold lg:my-5">
                 Start your fitness journey
               </h1>
@@ -73,7 +73,7 @@ const Banner = () => {
               </p>
 
               <Link
-                to="/queries"
+                to="/allClasses"
                 className="bg-white text-black px-4 py-2 rounded-md mt-4 lg:mt-8 inline-block"
               >
                 All classes
@@ -101,7 +101,7 @@ const Banner = () => {
               </p>
 
               <Link
-                to="/queries"
+                to="/allClasses"
                 className="bg-white text-black px-4 py-2 rounded-md mt-4 lg:mt-8 inline-block"
               >
                 All classes
@@ -129,7 +129,7 @@ const Banner = () => {
               </p>
 
               <Link
-                to="/queries"
+                to="/allClasses"
                 className="bg-white text-black px-4 py-2 rounded-md mt-4 lg:mt-8 inline-block"
               >
                 All classes

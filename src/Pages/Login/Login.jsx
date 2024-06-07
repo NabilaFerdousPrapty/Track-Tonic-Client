@@ -16,11 +16,11 @@ const Login = () => {
     formState: { errors },
   } = useForm()
 
-  const onSubmit ={
-   
-   
-
-
+  const onSubmit = (data) => {
+    const {email,password}=data;
+    signInWithEmail(email,password);
+    
+    
   }
   return (
     <div className=" my-10 rounded-xl font-merriweather">
