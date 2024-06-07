@@ -40,10 +40,13 @@ const AllTrainers = () => {
       <div className="container px-6 py-10 mx-auto -mt-72 sm:-mt-80 md:-mt-96">
         <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-3">
           {trainers.map((trainer) => (
+            
             <div
+          
               key={trainer._id}
               className="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
             >
+            
               <img
                 className="object-contain object-center w-full h-56 bg-slate-400 "
                 src={trainer.profile_image}
@@ -122,7 +125,7 @@ const AllTrainers = () => {
                   <h1 className="px-2 text-sm">{trainer.email}</h1>
                 </div>
               </div>
-              <Link>
+              <Link to={`/allTrainers/${trainer._id}`}>
                 <button className="flex items-center justify-center w-full h-12 text-sm font-medium  transition-colors duration-200 transform bg-[#17ACAC] text-white rounded-lg hover:bg-blue-400 focus:outline-none focus:ring-blue-400 focus:ring-4">
                   Know More
                 </button>
