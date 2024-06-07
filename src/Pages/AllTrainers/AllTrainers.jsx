@@ -1,6 +1,7 @@
 import React from "react";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router-dom";
 
 const AllTrainers = () => {
   const axiosCommon = UseAxiosCommon();
@@ -28,9 +29,10 @@ const AllTrainers = () => {
           </div>
 
           <p className="max-w-2xl mx-auto mt-6 text-center text-gray-500 dark:text-gray-300">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo
-            incidunt ex placeat modi magni quia error alias, adipisci rem
-            similique, at omnis eligendi optio eos harum.
+            Our team of trainers are highly experienced and have a wealth of
+            knowledge in the fitness industry. They are here to help you achieve
+            your fitness goals.Here you can find the best personal trainers in
+            the industry. 
           </p>
         </div>
       </div>
@@ -43,15 +45,12 @@ const AllTrainers = () => {
               className="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
             >
               <img
-                className="object-cover object-center w-full h-56"
-                src={
-                    trainer.
-                    profileImage
-                }
+                className="object-contain object-center w-full h-56 bg-slate-400 "
+                src={trainer.profile_image}
                 alt="avatar"
               />
 
-              <div className="flex items-center px-6 py-3 bg-gray-900">
+              <div className="flex items-center px-6 py-3 bg-gray-900 justify-center">
                 <svg
                   aria-label="headphones icon"
                   className="w-6 h-6 text-white fill-current"
@@ -67,32 +66,22 @@ const AllTrainers = () => {
                 </svg>
 
                 <h1 className="mx-3 text-lg font-semibold text-white">
-                  {
-                    trainer.otherInfo.specialization
-                  }
+                  {trainer.designation}
                 </h1>
               </div>
 
-              <div className="px-6 py-4">
+              <div className="px-6 py-4 text-center">
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-                  {
-                    trainer.name
-                  }
+                  {trainer.name}
                 </h1>
 
-                <p className="py-2 text-gray-700 dark:text-gray-400">
-                {
-                    trainer.otherInfo.bio
-                  }
-                </p>
+                <p className="py-2 text-gray-700 dark:text-gray-400"></p>
 
-                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
-              
-                 
-                  <h1 className="px-2 text-sm">Meraki UI</h1>
+                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200 justify-center">
+                  <h1 className="px-2 text-sm">Years of experience{trainer.years_of_experience}</h1>
                 </div>
 
-                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200 justify-center">
                   <svg
                     aria-label="location pin icon"
                     className="w-6 h-6 fill-current"
@@ -112,10 +101,10 @@ const AllTrainers = () => {
                     />
                   </svg>
 
-                  <h1 className="px-2 text-sm">California</h1>
+                  <h1 className="px-2 text-sm">{trainer.location}</h1>
                 </div>
 
-                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
+                <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200 justify-center">
                   <svg
                     aria-label="email icon"
                     className="w-6 h-6 fill-current"
@@ -130,9 +119,14 @@ const AllTrainers = () => {
                     />
                   </svg>
 
-                  <h1 className="px-2 text-sm">patterson@example.com</h1>
+                  <h1 className="px-2 text-sm">{trainer.email}</h1>
                 </div>
               </div>
+              <Link>
+                <button className="flex items-center justify-center w-full h-12 text-sm font-medium  transition-colors duration-200 transform bg-[#17ACAC] text-white rounded-lg hover:bg-blue-400 focus:outline-none focus:ring-blue-400 focus:ring-4">
+                  View Profile
+                </button>
+              </Link>
             </div>
           ))}
         </div>
