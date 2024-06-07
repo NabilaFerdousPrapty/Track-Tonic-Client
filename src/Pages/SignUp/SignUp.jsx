@@ -10,7 +10,8 @@ const SignUp = () => {
   const {
     register,
     handleSubmit,
-    watch,
+    
+    reset,
     formState: { errors },
   } = useForm();
   const handleGoogleSignIn = () => {
@@ -19,6 +20,7 @@ const SignUp = () => {
         // Signed in
         const user = userCredential.user;
         setUser(user)
+        reset();
         Swal.fire({
           icon: 'success',
           title: 'Login Success',
@@ -31,6 +33,7 @@ const SignUp = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        reset();
         Swal.fire({
           icon: 'error',
           title: 'Login Failed',
@@ -41,26 +44,25 @@ const SignUp = () => {
 
   const onSubmit = (data) => {
     const regex =/^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{7,}$/;
-    if (data.password === data.confirmPassword) {
-      createUser(data.email, data.password);
-    } else {
+    if (data.password !== data.confirmPassword) {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Password and Confirm Password must be same!",
       });
-      return;
+      reset();
     }
     if (regex.test(data.password)) {
       createUser(data.email, data.password)
         .then((userCredential) => {
-          updateUserProfile(data.name, data.photo);
+          updateUserProfile(data.name, data.photo)
+          setUser(userCredential.user)
           Swal.fire({
             icon: "success",
             title: "Congratulation",
             text: "Your account has been created successfully!",
           });
-          
+          reset();
           navigate('/')
           
           
@@ -71,6 +73,7 @@ const SignUp = () => {
             title: "Oops...",
             text: error.message,
           });
+          reset();
           return;
         });
     } else {
@@ -79,6 +82,7 @@ const SignUp = () => {
         title: "Oops...",
         text: "Password must contain at least 1 uppercase letter, 1 lowercase letter, 1 number and 1 special character!",
       });
+      reset();
       return;
     }
   };

@@ -4,8 +4,10 @@ import { Link, NavLink } from 'react-router-dom';
 import { Button } from "flowbite-react";
 
 import Dropdown from './Dropdown/Dropdown';
+import useAuth from '../../../hooks/UseAuth';
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const {user, setUser} = useAuth();
 
     return (
         <nav className="relative  shadow   rounded-3xl">
@@ -63,16 +65,18 @@ const Navbar = () => {
                         </div>
 
                         <div className="flex items-center mt-4 lg:mt-0 justify-center gap-1">
-                           <Dropdown/>
-
-                           
-                            <Link to={'/login'}>
+                          {
+                            user? <Dropdown/> : <Link to={'/login'}>
                             <Button color="gray" type="button" className="flex items-center focus:outline-none bg-[#17ACAC] text-white " aria-label="toggle profile dropdown">
                                
 
                               Login
                             </Button>
                             </Link>
+                           
+                          }
+
+                           
                            
                         </div>
                     </div>
