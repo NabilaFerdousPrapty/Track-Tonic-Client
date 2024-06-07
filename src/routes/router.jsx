@@ -8,6 +8,7 @@ import AllTrainers from "../Pages/AllTrainers/AllTrainers";
 import PrivateRoute from "./Private/PrivateRoute";
 import TrainerDetails from "../Pages/AllTrainers/TrainerDetails/TrainerDetails";
 import DashBoard from "../Layouts/DashBoard";
+import BecomeATrainer from "../Pages/BecomeATrainer/BecomeATrainer";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +44,12 @@ export const router = createBrowserRouter([
         
 
       },
-     
+     {
+      path:'/becomeATrainer',
+      element:<PrivateRoute>
+        <BecomeATrainer/>
+      </PrivateRoute>
+     },
       {
         path: "/community",
         element: <Home />,
