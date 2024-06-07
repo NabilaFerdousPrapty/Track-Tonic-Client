@@ -1,13 +1,19 @@
 import { useForm } from "react-hook-form"
 import logo from "../../assets/img.png";
 import { Button } from "flowbite-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
+import Swal from "sweetalert2";
 const Login = () => {
+  const navigate=useNavigate();
+  const location=useLocation();
   const {
     signInWithEmail,
     LogOut,
-    signInWithGoogle
+    signInWithGoogle,
+    user,
+    setUser
+
   }=useAuth();
   const {
     register,
@@ -18,10 +24,60 @@ const Login = () => {
 
   const onSubmit = (data) => {
     const {email,password}=data;
-    signInWithEmail(email,password);
+    signInWithEmail( email, password)
+  .then((userCredential) => {
+    // Signed in 
+    
+    const user = userCredential.user;
+    setUser(user)
+    Swal.fire({
+      icon: 'success',
+      title: 'Login Success',
+      text: 'You have successfully logged in',
+    })
+    console.log(user);
+    // ...
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    Swal.fire({
+      icon: 'error',
+      title: 'Login Failed',
+      text: errorMessage,
+    })
+  });
+
+
     
     
   }
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        setUser(user)
+        Swal.fire({
+          icon: 'success',
+          title: 'Login Success',
+          text: 'You have successfully logged in',
+        })
+        navigate(location?.state ? location.state : "/");
+        console.log(user);
+        // ...
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        Swal.fire({
+          icon: 'error',
+          title: 'Login Failed',
+          text: errorMessage,
+        })
+      });
+  }
+
   return (
     <div className=" my-10 rounded-xl font-merriweather">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-6xl">
@@ -41,7 +97,7 @@ const Login = () => {
             Welcome back!
           </p>
 
-          <button
+          <button onClick={handleGoogleSignIn}
             
             className="flex items-center justify-center mt-4 text-gray-600 transition-colors duration-300 transform border rounded-lg dark:border-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 w-full"
           >

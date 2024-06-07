@@ -124,7 +124,7 @@ const AllTrainers = () => {
               </div>
               <Link>
                 <button className="flex items-center justify-center w-full h-12 text-sm font-medium  transition-colors duration-200 transform bg-[#17ACAC] text-white rounded-lg hover:bg-blue-400 focus:outline-none focus:ring-blue-400 focus:ring-4">
-                  View Profile
+                  Know More
                 </button>
               </Link>
             </div>
