@@ -4,11 +4,11 @@ import { Button } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
 import Swal from "sweetalert2";
+
 const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { signInWithEmail,  signInWithGoogle, user, setUser } =
-    useAuth();
+  const { signInWithEmail, signInWithGoogle, user, setUser } = useAuth();
   const {
     register,
     handleSubmit,
@@ -20,7 +20,6 @@ const Login = () => {
     const { email, password } = data;
     signInWithEmail(email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         setUser(user);
         Swal.fire({
@@ -30,10 +29,8 @@ const Login = () => {
         });
         navigate(location?.state ? location.state : "/");
         console.log(user);
-        // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         Swal.fire({
           icon: "error",
@@ -42,10 +39,10 @@ const Login = () => {
         });
       });
   };
+
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         setUser(user);
         Swal.fire({
@@ -55,10 +52,8 @@ const Login = () => {
         });
         navigate(location?.state ? location.state : "/");
         console.log(user);
-        // ...
       })
       .catch((error) => {
-        const errorCode = error.code;
         const errorMessage = error.message;
         Swal.fire({
           icon: "error",
@@ -69,7 +64,7 @@ const Login = () => {
   };
 
   return (
-    <div className=" my-10 rounded-xl font-merriweather">
+    <div className="my-10 rounded-xl font-merriweather">
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-6xl">
         <div
           className="hidden bg-cover lg:block lg:w-1/2"
@@ -130,7 +125,7 @@ const Login = () => {
             <span className="w-1/5 border-b dark:border-gray-400 lg:w-1/4"></span>
           </div>
 
-          <form action="" onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="mt-4">
               <label
                 className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
@@ -168,29 +163,29 @@ const Login = () => {
               <input
                 {...register("password", { required: true })}
                 id="loggingPassword"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+                className="block w-full px-4 py-
+2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                 type="password"
               />
               {errors.password && (
                 <span className="text-red-700">This field is required</span>
               )}
             </div>
-          </form>
 
-          <div className="mt-6">
-            <button
-              type="submit"
-              
-              className="w-full px-6 py-3 text-sm font-medium tracking-wide capitalize transition-colors duration-300 transform  rounded-lg  focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 bg-[#17ACAC] text-white"
-            >
-              Sign In
-            </button>
-          </div>
+            <div className="mt-6">
+              <button
+                type="submit"
+                className="w-full px-6 py-3 text-sm font-medium tracking-wide capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50 bg-[#17ACAC] text-white"
+              >
+                Sign In
+              </button>
+            </div>
+          </form>
 
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
 
-            <Link to={"/signUp"} className="text-xs  uppercase hover:underline">
+            <Link to={"/signUp"} className="text-xs uppercase hover:underline">
               or sign up
             </Link>
 

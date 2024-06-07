@@ -19,7 +19,7 @@ const {user, setUser,LogOut} = useAuth();
         <span className="">
           <img
             className="object-cover w-8 h-8 rounded-full"
-            src={user?.photoURL || 'https://randomuser.me/api/portraits'}
+            src={user?.photoURL || 'https://i.ibb.co/M7Zxxsm/770fb75f5e81e4c2dbe8934f246aeeab.jpg'}
             alt="jane doe"
           />
         </span>
