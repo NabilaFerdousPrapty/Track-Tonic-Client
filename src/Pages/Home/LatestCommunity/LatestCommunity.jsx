@@ -1,67 +1,59 @@
 import React from 'react';
+import UseAxiosCommon from '../../../hooks/UseAxiosCommon';
+import { useQuery } from '@tanstack/react-query';
+import { Link } from 'react-router-dom';
 
 const LatestCommunity = () => {
+	const axiosCommon = UseAxiosCommon();
+  let { data: posts = [] } = useQuery({
+    queryKey: ["posts"],
+    queryFn: async () => {
+      const { data } = await axiosCommon.get("/posts");
+      return data;
+    },
+  });
+  const sortedPosts = posts.sort((a, b) => new Date(b.posted_date) - new Date(a.posted_date));
+  const recentPosts = sortedPosts.slice(0, 6);
+  posts=recentPosts;
+  
+  console.log(posts);
     return (
         <div>
-            <section className="bg-gray-100 text-gray-800">
+            <section className="bg-gray-100 text-gray-800 rounded-2xl">
 	<div className="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
-		<a rel="noopener noreferrer" href="#" className="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 bg-gray-50">
-			<img src="https://source.unsplash.com/random/480x360" alt="" className="object-cover w-full h-64 rounded sm:h-96 lg:col-span-7 bg-gray-500" />
-			<div className="p-6 space-y-2 lg:col-span-5">
-				<h3 className="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">Noster tincidunt reprimique ad pro</h3>
-				<span className="text-xs text-gray-600">February 19, 2021</span>
-				<p>Ei delenit sensibus liberavisse pri. Quod suscipit no nam. Est in graece fuisset, eos affert putent doctus id.</p>
-			</div>
-		</a>
+		<h1 className="text-3xl font-semibold text-center">Latest Community Posts</h1>
+		<p className="max-w-2xl mx-auto text-center text-gray-600">
+			Stay up to date with the latest community posts. Share your thoughts and ideas with the community.
+		</p>
+
+		
 		<div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-			<a rel="noopener noreferrer" href="#" className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50">
-				<img role="presentation" className="object-cover w-full rounded h-44 bg-gray-500" src="https://source.unsplash.com/random/480x360?1" />
-				<div className="p-6 space-y-2">
-					<h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">In usu laoreet repudiare legendos</h3>
-					<span className="text-xs text-gray-600">January 21, 2021</span>
-					<p>Mei ex aliquid eleifend forensibus, quo ad dicta apeirian neglegentur, ex has tantas percipit perfecto. At per tempor albucius perfecto, ei probatus consulatu patrioque mea, ei vocent delicata indoctum pri.</p>
-				</div>
-			</a>
-			<a rel="noopener noreferrer" href="#" className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50">
-				<img role="presentation" className="object-cover w-full rounded h-44 bg-gray-500" src="https://source.unsplash.com/random/480x360?2" />
-				<div className="p-6 space-y-2">
-					<h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">In usu laoreet repudiare legendos</h3>
-					<span className="text-xs text-gray-600">January 22, 2021</span>
-					<p>Mei ex aliquid eleifend forensibus, quo ad dicta apeirian neglegentur, ex has tantas percipit perfecto. At per tempor albucius perfecto, ei probatus consulatu patrioque mea, ei vocent delicata indoctum pri.</p>
-				</div>
-			</a>
-			<a rel="noopener noreferrer" href="#" className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50">
-				<img role="presentation" className="object-cover w-full rounded h-44 bg-gray-500" src="https://source.unsplash.com/random/480x360?3" />
-				<div className="p-6 space-y-2">
-					<h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">In usu laoreet repudiare legendos</h3>
-					<span className="text-xs text-gray-600">January 23, 2021</span>
-					<p>Mei ex aliquid eleifend forensibus, quo ad dicta apeirian neglegentur, ex has tantas percipit perfecto. At per tempor albucius perfecto, ei probatus consulatu patrioque mea, ei vocent delicata indoctum pri.</p>
-				</div>
-			</a>
-			<a rel="noopener noreferrer" href="#" className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50 hidden sm:block">
-				<img role="presentation" className="object-cover w-full rounded h-44 bg-gray-500" src="https://source.unsplash.com/random/480x360?4" />
-				<div className="p-6 space-y-2">
-					<h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">In usu laoreet repudiare legendos</h3>
-					<span className="text-xs text-gray-600">January 24, 2021</span>
-					<p>Mei ex aliquid eleifend forensibus, quo ad dicta apeirian neglegentur, ex has tantas percipit perfecto. At per tempor albucius perfecto, ei probatus consulatu patrioque mea, ei vocent delicata indoctum pri.</p>
-				</div>
-			</a>
-			<a rel="noopener noreferrer" href="#" className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50 hidden sm:block">
-				<img role="presentation" className="object-cover w-full rounded h-44 bg-gray-500" src="https://source.unsplash.com/random/480x360?5" />
-				<div className="p-6 space-y-2">
-					<h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">In usu laoreet repudiare legendos</h3>
-					<span className="text-xs text-gray-600">January 25, 2021</span>
-					<p>Mei ex aliquid eleifend forensibus, quo ad dicta apeirian neglegentur, ex has tantas percipit perfecto. At per tempor albucius perfecto, ei probatus consulatu patrioque mea, ei vocent delicata indoctum pri.</p>
-				</div>
-			</a>
-			<a rel="noopener noreferrer" href="#" className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50 hidden sm:block">
-				<img role="presentation" className="object-cover w-full rounded h-44 bg-gray-500" src="https://source.unsplash.com/random/480x360?6" />
-				<div className="p-6 space-y-2">
-					<h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">In usu laoreet repudiare legendos</h3>
-					<span className="text-xs text-gray-600">January 26, 2021</span>
-					<p>Mei ex aliquid eleifend forensibus, quo ad dicta apeirian neglegentur, ex has tantas percipit perfecto. At per tempor albucius perfecto, ei probatus consulatu patrioque mea, ei vocent delicata indoctum pri.</p>
-				</div>
-			</a>
+			
+			{
+				posts.map(post=><a key={post._id} rel="noopener noreferrer" href="#" className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50">
+					<img role="presentation" className="object-cover w-full rounded h-44 bg-gray-500" src={post.image} />
+					<div className="p-6 space-y-2">
+						<h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">
+							{
+								post.post_name
+							}
+						</h3>
+						<span className="text-xs text-gray-600">
+							{
+								post.posted_date
+							}
+						</span>
+						<p>
+							{post.other_info}
+						</p>
+
+						<Link>
+							<button type="button" className="my-4 px-6 py-3 text-sm rounded-md hover:underline  text-gray-600 btn bg-slate-400">Read more</button>
+						</Link>
+					</div>
+				</a>)
+			}
+			
 		</div>
 		<div className="flex justify-center">
 			<button type="button" className="px-6 py-3 text-sm rounded-md hover:underline bg-gray-50 text-gray-600">Load more posts...</button>
