@@ -36,11 +36,11 @@ export const router = createBrowserRouter([
       {
         path: "/allTrainers/:id",
         element: (
-          <PrivateRoute>
-            <TrainerDetails />
-          </PrivateRoute>
+          <TrainerDetails/>
         ),
         
+        
+
       },
       {
         path: "/dashboard",

@@ -3,7 +3,9 @@ import logo from "../../assets/img.png";
 import { useForm } from "react-hook-form";
 import useAuth from "./../../hooks/UseAuth";
 import Swal from "sweetalert2";
+import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 const SignUp = () => {
+  const axiosCommon=UseAxiosCommon();
   const { signInWithGoogle, createUser, updateUserProfile,user,setUser } = useAuth();
   const navigate=useNavigate();
   const location=useLocation();
@@ -19,15 +21,27 @@ const SignUp = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        setUser(user)
-        reset();
-        Swal.fire({
-          icon: 'success',
-          title: 'Login Success',
-          text: 'You have successfully logged in',
-        })
-        navigate(location?.state ? location.state : "/");
-        console.log(user);
+        
+        const userInfo={
+          name:user.displayName,
+          email:user.email,
+          role:'member',
+        }
+        axiosCommon.post('/users',userInfo)
+        .then((res)=>{
+          console.log(res.data)
+          if (res.data.insertedId) {
+            Swal.fire({
+              icon: "success",
+              title: "Congratulation",
+              text: "Your account has been created successfully!",
+            });
+            reset();
+            navigate(location?.state ? location.state : "/")
+          }
+        }
+        )
+      
         // ...
       })
       .catch((error) => {
@@ -50,20 +64,36 @@ const SignUp = () => {
         title: "Oops...",
         text: "Password and Confirm Password must be same!",
       });
+      
       reset();
+      return;
     }
     if (regex.test(data.password)) {
       createUser(data.email, data.password)
         .then((userCredential) => {
           updateUserProfile(data.name, data.photo)
           setUser(userCredential.user)
-          Swal.fire({
-            icon: "success",
-            title: "Congratulation",
-            text: "Your account has been created successfully!",
-          });
-          reset();
-          navigate('/')
+          const userInfo={
+            name:data.name,
+            email:data.email,
+            role:'member',
+            
+          }
+          axiosCommon.post('/users',userInfo)
+          .then((res)=>{
+            console.log(res.data)
+            if (res.data.insertedId) {
+              Swal.fire({
+                icon: "success",
+                title: "Congratulation",
+                text: "Your account has been created successfully!",
+              });
+              reset();
+              navigate('/')
+            }
+          })
+
+          
           
           
         })

@@ -4,9 +4,11 @@ import { Button } from "flowbite-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
 import Swal from "sweetalert2";
+import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 
 const Login = () => {
   const navigate = useNavigate();
+  const axiosCommon=UseAxiosCommon();
   const location = useLocation();
   const { signInWithEmail, signInWithGoogle, user, setUser } = useAuth();
   const {
@@ -14,6 +16,7 @@ const Login = () => {
     handleSubmit,
     watch,
     formState: { errors },
+    reset,
   } = useForm();
 
   const onSubmit = (data) => {
@@ -43,25 +46,42 @@ const Login = () => {
   const handleGoogleSignIn = () => {
     signInWithGoogle()
       .then((userCredential) => {
+        // Signed in
         const user = userCredential.user;
-        setUser(user);
-        Swal.fire({
-          icon: "success",
-          title: "Login Success",
-          text: "You have successfully logged in",
-        });
-        navigate(location?.state ? location.state : "/");
-        console.log(user);
+        
+        const userInfo={
+          name:user.displayName,
+          email:user.email,
+          role:'member',
+        }
+        axiosCommon.post('/users',userInfo)
+        .then((res)=>{
+          console.log(res.data)
+          if (res.data.insertedId) {
+            Swal.fire({
+              icon: "success",
+              title: "Congratulation",
+              text: "Your account has been created successfully!",
+            });
+            reset();
+            navigate('/')
+          }
+        }
+        )
+      
+        // ...
       })
       .catch((error) => {
+        const errorCode = error.code;
         const errorMessage = error.message;
+        reset();
         Swal.fire({
-          icon: "error",
-          title: "Login Failed",
+          icon: 'error',
+          title: 'Login Failed',
           text: errorMessage,
-        });
+        })
       });
-  };
+  }
 
   return (
     <div className="my-10 rounded-xl font-merriweather">

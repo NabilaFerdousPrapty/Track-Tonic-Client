@@ -53,9 +53,11 @@ const Navbar = () => {
                             <NavLink to={'/allClasses'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
                             All Classes
                             </NavLink>
-                            <NavLink to={'/dashboard'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
+                           {
+                            user && <NavLink to={'/dashboard'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
                             Dashboard
                             </NavLink>
+                           }
                             <NavLink to={'/community'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
                             Community
                             </NavLink>
