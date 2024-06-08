@@ -7,6 +7,7 @@ import UseAdmin from "../hooks/UseAdmin";
 
 const DashBoard = () => {
   const [isAdmin] = [true];
+  const [isTrainer] = [false];
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (

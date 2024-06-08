@@ -47,7 +47,7 @@ const LatestCommunity = () => {
 							{post.other_info}
 						</p>
 
-						<Link>
+						<Link to={`/posts/${post._id}`}>
 							<button type="button" className="my-4 px-6 py-3 text-sm rounded-md hover:underline  text-gray-600 btn bg-slate-400">Read more</button>
 						</Link>
 					</div>

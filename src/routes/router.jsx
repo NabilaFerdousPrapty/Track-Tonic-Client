@@ -11,6 +11,8 @@ import DashBoard from "../Layouts/DashBoard";
 import BecomeATrainer from "../Pages/BecomeATrainer/BecomeATrainer";
 import ErrorPage from "../Pages/Error/ErrorPage";
 import UserDashboard from "../Pages/Dashboard/UserDashboard";
+import PostDetails from "../Pages/Home/LatestCommunity/PostDetails/PostDetails";
+import { axiosSecure } from "../hooks/UseAxiosSecure";
 
 export const router = createBrowserRouter([
   {
@@ -53,7 +55,19 @@ export const router = createBrowserRouter([
       {
         path: "/community",
         element: <Home />,
-      },
+      },{
+        path: "/posts/:id",
+        element: <PostDetails />,
+        loader: async ({ params }) => {
+          try {
+            const response = await axiosSecure.get(`/posts/${params.id}`);
+            return response.data;
+          } catch (error) {
+            console.error('Error loading item:', error);
+            throw new Error('Failed to load item data');
+          }
+        }
+      }
     ],
   },
   {
