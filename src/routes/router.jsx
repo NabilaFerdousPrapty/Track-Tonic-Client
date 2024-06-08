@@ -13,6 +13,7 @@ import ErrorPage from "../Pages/Error/ErrorPage";
 import UserDashboard from "../Pages/Dashboard/UserDashboard";
 import PostDetails from "../Pages/Home/LatestCommunity/PostDetails/PostDetails";
 import { axiosSecure } from "../hooks/UseAxiosSecure";
+import Community from "../Pages/Community/Community";
 
 export const router = createBrowserRouter([
   {
@@ -54,7 +55,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "/community",
-        element: <Home />,
+        element:<Community/>,
       },{
         path: "/posts/:id",
         element: <PostDetails />,
