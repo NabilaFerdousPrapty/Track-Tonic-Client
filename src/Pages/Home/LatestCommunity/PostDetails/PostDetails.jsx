@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 
 const PostDetails = () => {
   const post = useLoaderData();
+ 
   return (
     <div className=" my-5 bg-slate-300 rounded-2xl shadow-2xl">
       <div className="flex flex-col overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 sm:flex-row">

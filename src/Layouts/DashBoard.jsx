@@ -6,8 +6,12 @@ import { Link, NavLink, Outlet } from "react-router-dom";
 import UseAdmin from "../hooks/UseAdmin";
 
 const DashBoard = () => {
-  const [isAdmin] = [true];
-  const [isTrainer] = [false];
+  // const [isAdmin] = [true];
+  // const [isTrainer] = [false];
+  const [isAdmin ,isAdminLoading]=UseAdmin()
+  console.log(isAdmin,isAdminLoading);
+
+  
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
