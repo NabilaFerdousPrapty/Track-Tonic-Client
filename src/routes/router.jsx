@@ -10,12 +10,13 @@ import TrainerDetails from "../Pages/AllTrainers/TrainerDetails/TrainerDetails";
 import DashBoard from "../Layouts/DashBoard";
 import BecomeATrainer from "../Pages/BecomeATrainer/BecomeATrainer";
 import ErrorPage from "../Pages/Error/ErrorPage";
+import UserDashboard from "../Pages/Dashboard/UserDashboard";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement:<ErrorPage/>,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
@@ -39,26 +40,35 @@ export const router = createBrowserRouter([
       },
       {
         path: "/allTrainers/:id",
-        element: (
-          <TrainerDetails/>
-        ),
-
-        
-
+        element: <TrainerDetails />,
       },
-     {
-      path:'/becomeATrainer',
-      element:<PrivateRoute>
-        <BecomeATrainer/>
-      </PrivateRoute>
-     },
+      {
+        path: "/becomeATrainer",
+        element: (
+          <PrivateRoute>
+            <BecomeATrainer />
+          </PrivateRoute>
+        ),
+      },
       {
         path: "/community",
         element: <Home />,
       },
     ],
-  },{
-    path: "/dashboard",
-    element: <DashBoard></DashBoard>,
-  }
+  },
+  {
+    path: "dashboard",
+    element: (
+      <PrivateRoute>
+        <DashBoard></DashBoard>
+      </PrivateRoute>
+    ),
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "userDashboard",
+        element: <UserDashboard />,
+      },
+    ],
+  },
 ]);

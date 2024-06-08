@@ -1,5 +1,6 @@
 import React from 'react';
 import img from '../../assets/404 error lost in space.gif'
+import { Link } from 'react-router-dom';
 const ErrorPage = () => {
     return (
         <div className='h-screen'>
@@ -9,7 +10,7 @@ const ErrorPage = () => {
 			<img src={img} alt="" />
 			<p className="text-2xl font-semibold md:text-3xl">Sorry, we couldn't find this page.</p>
 			<p className="mt-4 mb-8 text-gray-600">But dont worry, you can find plenty of other things on our homepage.</p>
-			<a rel="noopener noreferrer" href="#" className="px-8 py-3 font-semibold  bg-[#17ACAC] text-white rounded-xl">Back to homepage</a>
+			<Link to={'/'} className="px-8 py-3 font-semibold  bg-[#17ACAC] text-white rounded-xl">Back to homepage</Link>
 		</div>
 	</div>
 </section>
