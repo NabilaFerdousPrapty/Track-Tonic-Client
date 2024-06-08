@@ -9,11 +9,13 @@ import PrivateRoute from "./Private/PrivateRoute";
 import TrainerDetails from "../Pages/AllTrainers/TrainerDetails/TrainerDetails";
 import DashBoard from "../Layouts/DashBoard";
 import BecomeATrainer from "../Pages/BecomeATrainer/BecomeATrainer";
+import ErrorPage from "../Pages/Error/ErrorPage";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement:<ErrorPage/>,
     children: [
       {
         path: "/",
