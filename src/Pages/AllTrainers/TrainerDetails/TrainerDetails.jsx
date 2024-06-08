@@ -86,7 +86,7 @@ const TrainerDetails = () => {
               </div>
             </div>
             <div>
-              {trainer.available_slots.map((slot, index) => (
+              {trainer.available_times.map((slot, index) => (
                 <div
                   key={index}
                   className="flex flex-col items-center justify-between w-full mt-4 bg-white rounded-lg shadow-md dark:bg-gray-800 my-2 gap-4 p-6"
@@ -102,6 +102,13 @@ const TrainerDetails = () => {
                     >
                       {slot}
                     </a>
+                    <p className="mt-2 text-sm text-blue-300 mx-3 font-bold ">
+                    {
+                      trainer.availableDays.map((day, index) => (
+                        <span key={index}>{day.label} </span>
+                      ))
+                     }
+                    </p>
                     <p>
                       {trainer.name} is available on {slot} .
                     </p>

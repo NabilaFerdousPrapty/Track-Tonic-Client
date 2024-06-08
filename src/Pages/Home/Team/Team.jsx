@@ -58,6 +58,16 @@ const Team = () => {
                 trainer.designation
                }
               </p>
+              <p className="mt-2 text-gray-500 capitalize dark:text-gray-300 font-semibold">
+               {
+                trainer.name
+               }
+              </p>
+              <p className="text-center">
+                {
+                  trainer.bio
+                }
+              </p>
 
               <div className="flex mt-3 -mx-2">
                 <a
