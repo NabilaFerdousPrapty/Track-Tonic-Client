@@ -9,7 +9,7 @@ const UserDashboard = () => {
             WebkitTextStrokeWidth: "1px",
             WebkitTextStrokeColor: "#FFF",
           }}
-          className="lg:text-5xl text-3xl text-center font-bold text-gray-800 mt-10 font-manrope"
+          className="lg:text-5xl text-3xl text-center font-bold  mt-10 font-manrope text-teal-600 "
         >
           SHAPE YOUR IDEAL BODY
         </h1>
