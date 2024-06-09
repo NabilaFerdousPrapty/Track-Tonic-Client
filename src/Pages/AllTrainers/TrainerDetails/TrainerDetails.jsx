@@ -24,32 +24,7 @@ const TrainerDetails = () => {
     fetchTrainer();
   }, [axiosCommon, id]);
   console.log(trainer);
-  // const handleBooking = () => {
-  //   const bookingData = {
-  //     trainer_id: trainer._id,
-  //     user_id: user._id,
-  //   };
-  //   axiosSecure
-  //     .post("/bookedTrainers", bookingData)
-  //     .then((response) => {
-  //       console.log(response);
-
-  //       Swal.fire({
-  //         icon: "success",
-  //         title: "Trainer Booked",
-  //         text: "You have successfully booked this trainer",
-  //       });
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       Swal.fire({
-  //         icon: "error",
-  //         title: "Oops...",
-  //         text: "Something went wrong!",
-  //       });
-  //     });
-    
-  // }
+  
   return (
     <div>
       <div>
@@ -113,17 +88,40 @@ const TrainerDetails = () => {
                     <span className="text-xs font-semibold text-blue-600 uppercase dark:text-blue-400">
                       {slot.day}
                     </span>
-                    <a
-                      href="#"
-                      className="block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
-                      role="link"
+                    <p
+                     
+                      className="text-center block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline"
+                      
                     >
                       {slot}
-                    </a>
-                    <p className="mt-2 text-sm text-blue-300 mx-3 font-bold ">
+                    </p>
+                    <p className="gap-6 text-sm text-blue-300 mx-3 font-bold flex-col  flex justify-center items-center ">
                     {
                       trainer.availableDays.map((day, index) => (
-                        <span key={index}>{day.label} </span>
+                        <div key={index}>
+                          <span>
+                          {day.label}
+                          </span>
+                        {
+                          
+                           <span className="flex items-center justify-center">
+                            
+                           <Link
+                          to={{
+                            pathname: `/booking/${trainer._id}/${slot}/${day.label}`,
+                            
+                          }}
+                          
+                             className=" font-semibold text-gray-700 dark:text-gray-200 btn "
+                           >
+                             <button className="bg-teal-300 px-3 py-3 rounded font-semibold text-gray-700 dark:text-gray-200">
+                               Book Now
+                             </button>
+                           </Link>
+                         </span>
+                         
+                        } </div>
+                        
                       ))
                      }
                     </p>
@@ -135,16 +133,7 @@ const TrainerDetails = () => {
                       booking.
                     </p>
                   </div>
-                  <div className="flex items-center justify-center">
-                    <Link
-                      to={`/booking/${trainer._id}`}
-                      className="mx-2 font-semibold text-gray-700 dark:text-gray-200 btn my-5"
-                    >
-                      <button className="bg-teal-300 px-3 py-3 rounded mx-2 font-semibold text-gray-700 dark:text-gray-200">
-                        Book Now
-                      </button>
-                    </Link>
-                  </div>
+                 
                 </div>
               ))}
             </div>
