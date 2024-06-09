@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlineLogin } from "react-icons/ai";
 import useAuth from '../../../../hooks/UseAuth';
 const Dropdown = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);

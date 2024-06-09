@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import UseAxiosCommon from "../../../hooks/UseAxiosCommon";
+import useAuth from "../../../hooks/UseAuth";
+import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 
 const TrainerDetails = () => {
+  const { user, setUser } = useAuth();
   const { id } = useParams(); // Access the dynamic route parameter (trainer ID)
   const axiosCommon = UseAxiosCommon();
+  const axiosSecure = UseAxiosSecure();
   const [trainer, setTrainer] = useState(null);
 
   useEffect(() => {
@@ -20,6 +24,32 @@ const TrainerDetails = () => {
     fetchTrainer();
   }, [axiosCommon, id]);
   console.log(trainer);
+  // const handleBooking = () => {
+  //   const bookingData = {
+  //     trainer_id: trainer._id,
+  //     user_id: user._id,
+  //   };
+  //   axiosSecure
+  //     .post("/bookedTrainers", bookingData)
+  //     .then((response) => {
+  //       console.log(response);
+
+  //       Swal.fire({
+  //         icon: "success",
+  //         title: "Trainer Booked",
+  //         text: "You have successfully booked this trainer",
+  //       });
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       Swal.fire({
+  //         icon: "error",
+  //         title: "Oops...",
+  //         text: "Something went wrong!",
+  //       });
+  //     });
+    
+  // }
   return (
     <div>
       <div>
@@ -70,19 +100,7 @@ const TrainerDetails = () => {
                     </span>
                   </div>
                 </div>
-                <div className="flex  justify-between items-center my-5">
-                  {trainer.social_media_links.map((link, index) => (
-                    <a
-                      key={index}
-                      href={link.url}
-                      className="mx-2 text-sky-400 dark:text-sky-300 hover:text-sky-500 dark:hover:text-sky-400 transition-colors duration-300"
-                      tabindex="0"
-                      role="link"
-                    >
-                      Social Media
-                    </a>
-                  ))}
-                </div>
+               
               </div>
             </div>
             <div>
@@ -119,7 +137,7 @@ const TrainerDetails = () => {
                   </div>
                   <div className="flex items-center justify-center">
                     <Link
-                      to={`/book/${trainer._id}`}
+                      to={`/booking/${trainer._id}`}
                       className="mx-2 font-semibold text-gray-700 dark:text-gray-200 btn my-5"
                     >
                       <button className="bg-teal-300 px-3 py-3 rounded mx-2 font-semibold text-gray-700 dark:text-gray-200">

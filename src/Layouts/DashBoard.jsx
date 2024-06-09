@@ -53,6 +53,12 @@ const DashBoard = () => {
           <span>Balance</span>
         </NavLink>
       </li>
+      <li className="rounded-sm  text-gray-900">
+        <NavLink to={'profilePage'} className="flex items-center p-2 space-x-3 rounded-md">
+          <FaUser className="w-5 h-5 text-gray-600" />
+          <span>Profile Page</span>
+        </NavLink>
+      </li>
       <li className="rounded-sm">
         <NavLink href="#" className="flex items-center p-2 space-x-3 rounded-md">
           <FaBookReader className="w-5 h-5 text-gray-600" />

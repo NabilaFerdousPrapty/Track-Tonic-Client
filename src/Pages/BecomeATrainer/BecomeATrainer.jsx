@@ -1,8 +1,9 @@
-
+import { useState } from "react";
 import Select from "react-select";
 import useAuth from "../../hooks/UseAuth";
 import { useForm } from "react-hook-form";
 import UseAxiosSecure from "../../hooks/UseAxiosSecure";
+import Swal from "sweetalert2";
 
 const skillsOptions = [
   { value: "skill1", label: "Yoga Instructor" },
@@ -28,29 +29,83 @@ const BecomeATrainer = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
+    setValue,
     reset,
   } = useForm();
 
+  // Define state for skills and availableDays
+  const [skills, setSkills] = useState([]);
+  const [availableDays, setAvailableDays] = useState([]);
+  const [availableTimes, setAvailableTimes] = useState([""]);
+
+  const handleAddTime = () => {
+    setAvailableTimes([...availableTimes, ""]);
+  };
+
+  const handleRemoveTime = (index) => {
+    setAvailableTimes(availableTimes.filter((_, i) => i !== index));
+  };
+
+  const handleTimeChange = (value, index) => {
+    const newTimes = [...availableTimes];
+    newTimes[index] = value;
+    setAvailableTimes(newTimes);
+  };
+
   const onSubmit = (data) => {
     const {
-        name,
-        age,
-        experience,
-        designation,
-        profileImage,
-        skills,
-        availableDays,
-        availableTime,
-        location,
-        qualification,
-        bio,
-        otherDetails,
-        } = data;
-        console.log(data);
-    }
+      name,
+      age,
+      experience,
+      designation,
+      profileImage,
+      location,
+      email,
+      qualification,
+      bio,
+      otherDetails,
+    } = data;
 
+    const trainerData = {
+      name,
+      email,
+      age,
+      experience,
+      designation,
+      profileImage,
+      skills: skills.map((skill) => skill.label),
+      availableDays: availableDays.map((day) => day.value),
+      availableTimes,
+      location,
+      background_and_qualifications: qualification,
+      bio,
+      otherDetails,
+      status: "pending",
+    };
+    axiosSecure
+      .post("/trainers", trainerData)
+      .then((response) => {
+        console.log(response);
+        Swal.fire({
+          icon: "success",
+          title: "Application Submitted",
+          text: "Your application has been submitted successfully",
+        });
+        reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+      });
+
+    console.log(trainerData);
+    // Send trainerData to server using axiosSecure or other method
+  };
 
   return (
     <div>
@@ -159,7 +214,7 @@ const BecomeATrainer = () => {
 
                 <div className="relative flex items-center mt-4">
                   <input
-                    type="file"
+                    type="url"
                     name="profileImage"
                     {...register("profileImage", { required: true })}
                     placeholder="Profile Image"
@@ -170,44 +225,62 @@ const BecomeATrainer = () => {
                   )}
                 </div>
 
-                <div className=" gap-2 flex items-center mt-4 justify-center">
-                  <Select
-                    isMulti
-                    name="skills"
-                    options={skillsOptions}
-                    className="block w-full"
-                    classNamePrefix="select"
-                    {...register("skills", { required: true })}
-                    placeholder="Select Skills"
-                  />
-                  {errors.skills && (
-                    <span className="text-red-700">This field is required</span>
-                  )}
-                  <Select
-                    isMulti
-                    {...register("availableDays", { required: true })}
-                    name="availableDays"
-                    options={daysOptions}
-                    className="block w-full"
-                    classNamePrefix="select"
-                    placeholder="Select Available Days"
-                  />
-                  {errors.availableDays && (
-                    <span className="text-red-700">This field is required</span>
-                  )}
+                <div className="gap-2 flex items-center mt-4 justify-center">
+                  <div className="w-full">
+                    <Select
+                      isMulti
+                      name="skills"
+                      options={skillsOptions}
+                      className="block w-full"
+                      classNamePrefix="select"
+                      value={skills}
+                      onChange={(selected) => setSkills(selected)}
+                      placeholder="Select Skills"
+                    />
+                  </div>
+
+                  <div className="w-full">
+                    <Select
+                      isMulti
+                      name="availableDays"
+                      options={daysOptions}
+                      className="block w-full"
+                      classNamePrefix="select"
+                      value={availableDays}
+                      onChange={(selected) => setAvailableDays(selected)}
+                      placeholder="Select Available Days"
+                    />
+                  </div>
                 </div>
 
-                <div className="relative flex items-center mt-4">
-                  <input
-                    type="time"
-                    name="availableTime"
-                    {...register("availableTime", { required: true })}
-                    className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
-                  />
-                  {errors.availableTime && (
-                    <span className="text-red-700">This field is required</span>
-                  )}
-                </div>
+                {availableTimes.map((time, index) => (
+                  <div className="relative flex items-center mt-4" key={index}>
+                    <input
+                      type="time"
+                      name={`availableTime${index}`}
+                      value={time}
+                      onChange={(e) => handleTimeChange(e.target.value, index)}
+                      className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                    />
+                    {index > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveTime(index)}
+                        className="ml-2 text-red-500"
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                ))}
+
+                <button
+                  type="button"
+                  onClick={handleAddTime}
+                  className="mt-2 text-blue-500"
+                >
+                  Add Time
+                </button>
 
                 <div className="relative flex items-center mt-4">
                   <input

@@ -18,6 +18,7 @@ import ActivityLog from "../Pages/UserDashBoard/AcitivityLog/ActivityLog";
 import BookedTrainer from "../Pages/UserDashBoard/BookedTrainer/BookedTrainer";
 import ProfilePage from "../Pages/UserDashBoard/ProfilePage/ProfilePage";
 import AddReview from "../Pages/UserDashBoard/AddReview/AddReview";
+import BookATrainer from "../Pages/BookATrainer/BookATrainer";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +57,13 @@ export const router = createBrowserRouter([
             <BecomeATrainer />
           </PrivateRoute>
         ),
+      },{
+        path:"/booking/:id",
+        element:<PrivateRoute>
+          <BookATrainer/>
+        </PrivateRoute>,
+       
+
       },
       {
         path: "/community",
@@ -100,7 +108,7 @@ export const router = createBrowserRouter([
       },{
         path:'addReview',
         element:<AddReview/>
-      }
+      },
     ],
   },
 ]);
