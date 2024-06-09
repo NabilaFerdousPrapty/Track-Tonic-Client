@@ -14,6 +14,10 @@ import UserDashboard from "../Pages/Dashboard/UserDashboard";
 import PostDetails from "../Pages/Home/LatestCommunity/PostDetails/PostDetails";
 import { axiosSecure } from "../hooks/UseAxiosSecure";
 import Community from "../Pages/Community/Community";
+import ActivityLog from "../Pages/UserDashBoard/AcitivityLog/ActivityLog";
+import BookedTrainer from "../Pages/UserDashBoard/BookedTrainer/BookedTrainer";
+import ProfilePage from "../Pages/UserDashBoard/ProfilePage/ProfilePage";
+import AddReview from "../Pages/UserDashBoard/AddReview/AddReview";
 
 export const router = createBrowserRouter([
   {
@@ -80,10 +84,23 @@ export const router = createBrowserRouter([
     ),
     errorElement: <ErrorPage />,
     children: [
+      //user routes
       {
-        path: "userDashboard",
+        path: "yourPlan",
         element: <UserDashboard />,
-      },
+      },{
+        path:'activityLog',
+        element:<ActivityLog/>
+      },{
+        path:'bookedTrainer',
+        element:<BookedTrainer/>
+      },{
+        path:'profilePage',
+        element:<ProfilePage/>
+      },{
+        path:'addReview',
+        element:<AddReview/>
+      }
     ],
   },
 ]);

@@ -54,7 +54,7 @@ const Navbar = () => {
                             All Classes
                             </NavLink>
                            {
-                            user && <NavLink to={'dashboard/userDashboard'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
+                            user && <NavLink to={'dashboard/yourPlan'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
                             Dashboard
                             </NavLink>
                            }
