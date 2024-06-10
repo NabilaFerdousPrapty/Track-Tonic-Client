@@ -22,10 +22,12 @@ import BookATrainer from "../Pages/BookATrainer/BookATrainer";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import Subscriber from "../Pages/AdminDashboard/Subscribers/Subscriber";
 import Appliedtrainer from "../Pages/AdminDashboard/Appliedtrainer/Appliedtrainer";
-import AllClasses from './../Pages/AllClasses/AllClasses';
+
 import Balance from "../Pages/AdminDashboard/Balance/Balance";
 import AddnewClass from "../Pages/AdminDashboard/AddnewClass/AddnewClass";
 import AddForum from "../Pages/AdminDashboard/AddForum/AddForum";
+import ManageSlot from "../Pages/TrainerDashboard/ManageSlot/ManageSlot";
+import AddNewSlot from "../Pages/TrainerDashboard/AddNewSlot/AddNewSlot";
 
 export const router = createBrowserRouter([
   {
@@ -133,9 +135,6 @@ export const router = createBrowserRouter([
         path:'appliedTrainer',
         element:<Appliedtrainer/>
       },{
-        path:'allClasses',
-        element:<AllClasses/>
-      },{
         path:'balance',
         element:<Balance/>
       },{
@@ -147,7 +146,12 @@ export const router = createBrowserRouter([
       },
       //Trainee routes
       {
-        path:'manageSlot'
+        path:'manageSlot',
+        element:<ManageSlot/>
+      },{
+        path:'addNew',
+        element:<AddNewSlot/>
+
       }
     ],
   },
