@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+
 import { Link } from "react-router-dom";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
+import { useEffect, useState } from "react";
 
 const AllClasses = () => {
   const [classes, setClasses] = useState([]);
@@ -13,7 +14,7 @@ const AllClasses = () => {
     const fetchClasses = async () => {
       setLoading(true);
       try {
-        const response = await axiosCommon.get(`/classes`);
+        const response = await axiosCommon.get(`/classes?page=${currentPage}&limit=${classesPerPage}`);
         setClasses(response.data);
       } catch (error) {
         console.error("Error fetching classes:", error);
@@ -122,7 +123,6 @@ const AllClasses = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {content}
       </div>
-      {/* Pagination */}
       <div className="mt-4 flex justify-center">{paginationButtons}</div>
     </div>
   );

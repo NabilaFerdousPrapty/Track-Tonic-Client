@@ -83,7 +83,7 @@ const DashBoard = () => {
   const renderTrainerLinks = () => (
     <ul className="pt-2 pb-4 space-y-1 text-lg gap-4">
       <li className="rounded-sm">
-        <NavLink to={"userDashboard"} className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={"yourPlan"} className="flex items-center p-2 space-x-3 rounded-md">
           <FaHome className="w-5 h-5 text-gray-600" />
           <span> Home</span>
         </NavLink>

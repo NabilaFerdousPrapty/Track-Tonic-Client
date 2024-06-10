@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UseAxiosSecure from "./../../../hooks/UseAxiosSecure";
 import useAuth from "../../../hooks/UseAuth";
+import { FaEye } from "react-icons/fa";
 
 const ActivityLog = () => {
   const axiosSecure = UseAxiosSecure();
@@ -9,69 +10,49 @@ const ActivityLog = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTrainers = async () => {
       try {
-        const response = await axiosSecure.get(`/payments/${user.email}`);
+        const response = await axiosSecure.get( `/trainers/${user.email}/pending`);
         setTrainers(response.data);
         setLoading(false);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching trainers:", error);
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [axiosSecure, user.email]);
+    fetchTrainers();
+  }, [axiosSecure]);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const handleOpenModal = (message) => {
+    // Open modal and display rejection message or feedback provided by admin
+    console.log("Rejection message:", message);
+  };
 
   return (
     <div>
-      {trainers.map((trainer) => (
-        <div
-          key={trainer._id}
-          className="flex flex-col overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 sm:flex-row my-5 p-8"
-        >
-          <figure className="flex-1 bg-slate-300 rounded-xl my-5 p-5">
-            <img
-              src={trainer.trainer_image || "https://picsum.photos/id/118/800/600"}
-              alt={trainer.trainer_name}
-              className="object-cover h-52 aspect-auto mx-auto rounded-xl"
-            />
-          </figure>
-          <div className="flex-1 p-6 sm:mx-6 sm:px-0">
-            <header className="flex gap-4 mb-4">
-              <a
-                href="#"
-                className="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full"
-              >
-                <img
-                  src={trainer.user_image || "https://i.pravatar.cc/48?img=24"}
-                  alt={trainer.user_name}
-                  title={trainer.user_name}
-                  width="48"
-                  height="48"
-                  className="max-w-full rounded-full"
-                />
-              </a>
-              <div>
-                <h3 className="text-xl font-medium text-slate-700">
-                  {trainer.slot_name.date}, {trainer.slot_name.time}
-                </h3>
-                <p className="text-sm text-slate-400">
-                  By {trainer.user_name},{" "}
-                  {new Date(trainer.date).toLocaleDateString()}
-                </p>
-              </div>
-            </header>
-            <p>
-              {trainer.package_name} - ${trainer.price}
-            </p>
-          </div>
-        </div>
-      ))}
+      <h1>Activity Log</h1>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <ul>
+          {trainers.map((trainer) => (
+            <li key={trainer._id}>
+              <span>{trainer.name}</span>
+              <span>{trainer.email}</span>
+              <span>{trainer.status}</span>
+              {trainer.status === "Rejected" && (
+                <button onClick={() => handleOpenModal(trainer.rejectionMessage)}>
+                  <FaEye />
+                </button>
+              )}
+            </li>
+          ))}
+          {
+            trainers.length === 0 && <div>No trainers available</div>
+          }
+        </ul>
+      )}
     </div>
   );
 };

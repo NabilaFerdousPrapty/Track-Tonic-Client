@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import UseRole from "../../../hooks/UseRole";
 
+
 const Appliedtrainer = () => {
   const [trainers, setTrainers] = useState([]);
   const axiosSecure = UseAxiosSecure();
@@ -38,14 +39,13 @@ const Appliedtrainer = () => {
             .patch(`/approveTrainer/${id}`)
             .then((response) => {
               if (response.data && response.data.modifiedCount > 0) {
-                refetch();
                 Swal.fire({
                   title: "Approved!",
                   text: "Your trainer has been approved.",
                   icon: "success",
                   showConfirmButton: false,
                 });
-               
+                refetch();
               } else {
                 Swal.fire({
                   title: "Error!",
