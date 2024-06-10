@@ -30,25 +30,25 @@ const DashBoard = () => {
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'subscribers'} className="flex items-center p-2 space-x-3 rounded-md">
           <FaNewspaper className="w-5 h-5 text-gray-600" />
           <span>All Newsletter subscribers</span>
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'allTrainers'} className="flex items-center p-2 space-x-3 rounded-md">
           <MdOnDeviceTraining className="w-5 h-5 text-gray-600" />
           All Trainers
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink href="#" className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'appliedTrainer'} href="#" className="flex items-center p-2 space-x-3 rounded-md">
           <VscGitStashApply className="w-5 h-5 text-gray-600" />
           Applied Trainer
         </NavLink>
       </li>
       <li className="rounded-sm  text-gray-900">
-        <NavLink href="#" className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'balance'} href="#" className="flex items-center p-2 space-x-3 rounded-md">
           <FaMoneyBill1Wave className="w-5 h-5 text-gray-600" />
           <span>Balance</span>
         </NavLink>
@@ -60,7 +60,13 @@ const DashBoard = () => {
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink href="#" className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'addForum'} href="#" className="flex items-center p-2 space-x-3 rounded-md">
+         <MdPostAdd className="w-5 h-5 text-gray-600" />
+          Add new Forum
+        </NavLink>
+      </li>
+      <li className="rounded-sm">
+        <NavLink to={'addNewClass'} href="#" className="flex items-center p-2 space-x-3 rounded-md">
           <FaBookReader className="w-5 h-5 text-gray-600" />
           <span>Add new Class</span>
         </NavLink>
@@ -83,37 +89,37 @@ const DashBoard = () => {
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'manageSlot'} className="flex items-center p-2 space-x-3 rounded-md">
          <MdManageHistory className="w-5 h-5 text-gray-600" />
           <span>ManageSlots</span>
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'addNew'} className="flex items-center p-2 space-x-3 rounded-md">
           <MdMoreTime className="w-5 h-5 text-gray-600" />
           Add New slot
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink href="#" className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'addForum'} href="#" className="flex items-center p-2 space-x-3 rounded-md">
          <MdPostAdd className="w-5 h-5 text-gray-600" />
           Add new Forum
         </NavLink>
       </li>
-      <li className="rounded-sm">
-        <NavLink className="flex items-center p-2 space-x-3 rounded-md">
-          <FiActivity className="w-5 h-5 text-gray-600" />
-          <span>Activity Log page</span>
-        </NavLink>
-      </li>
       <li className="rounded-sm  text-gray-900">
-        <NavLink href="#" className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'profilePage'} className="flex items-center p-2 space-x-3 rounded-md">
           <FaUser className="w-5 h-5 text-gray-600" />
           <span>Profile Page</span>
         </NavLink>
       </li>
       <li className="rounded-sm">
-        <NavLink href="#" className="flex items-center p-2 space-x-3 rounded-md">
+        <NavLink to={'activityLog'} className="flex items-center p-2 space-x-3 rounded-md">
+          <FiActivity className="w-5 h-5 text-gray-600" />
+          <span>Activity Log page</span>
+        </NavLink>
+      </li>
+      <li className="rounded-sm">
+        <NavLink to={'addReview'} className="flex items-center p-2 space-x-3 rounded-md">
           <MdRateReview className="w-5 h-5 text-gray-600" />
           <span>Add review</span>
         </NavLink>

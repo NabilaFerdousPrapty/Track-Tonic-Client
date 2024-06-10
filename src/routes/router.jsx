@@ -20,6 +20,12 @@ import ProfilePage from "../Pages/UserDashBoard/ProfilePage/ProfilePage";
 import AddReview from "../Pages/UserDashBoard/AddReview/AddReview";
 import BookATrainer from "../Pages/BookATrainer/BookATrainer";
 import PaymentPage from "../Pages/PaymentPage/PaymentPage";
+import Subscriber from "../Pages/AdminDashboard/Subscribers/Subscriber";
+import Appliedtrainer from "../Pages/AdminDashboard/Appliedtrainer/Appliedtrainer";
+import AllClasses from './../Pages/AllClasses/AllClasses';
+import Balance from "../Pages/AdminDashboard/Balance/Balance";
+import AddnewClass from "../Pages/AdminDashboard/AddnewClass/AddnewClass";
+import AddForum from "../Pages/AdminDashboard/AddForum/AddForum";
 
 export const router = createBrowserRouter([
   {
@@ -116,6 +122,33 @@ export const router = createBrowserRouter([
         path:'addReview',
         element:<AddReview/>
       },
+      //Admin routes
+      {
+        path:'subscribers',
+        element:<Subscriber/>
+      },{
+        path:'allTrainers',
+        element:<AllTrainers/>
+      },{
+        path:'appliedTrainer',
+        element:<Appliedtrainer/>
+      },{
+        path:'allClasses',
+        element:<AllClasses/>
+      },{
+        path:'balance',
+        element:<Balance/>
+      },{
+        path:'addNewClass',
+        element:<AddnewClass/>
+      },{
+        path:'addForum',
+        element:<AddForum/>
+      },
+      //Trainee routes
+      {
+        path:'manageSlot'
+      }
     ],
   },
 ]);

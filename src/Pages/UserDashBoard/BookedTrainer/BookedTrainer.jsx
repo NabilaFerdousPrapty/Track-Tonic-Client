@@ -72,6 +72,9 @@ const BookedTrainer = () => {
           </div>
         </div>
       ))}
+      {
+        trainers.length === 0 && <div className="text-5xl text-center font-semibold">No trainers booked yet</div>
+      }
     </div>
   );
 };
