@@ -57,10 +57,10 @@ const BecomeATrainer = () => {
     const {
       name,
       age,
-      years_of_experience: experience,
+     experience,
       designation,
 
-      profile_image: profileImage,
+      profileImage,
       location,
       email,
       qualification,

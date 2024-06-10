@@ -1,13 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import UseAxiosCommon from '../../../hooks/UseAxiosCommon';
 
 const FeaturedClasses = () => {
-    return (
-        <div>
-            <p>
-                Featured Classes
-            </p>
-        </div>
-    );
+  const [classes, setClasses] = useState([]);
+  const axiosCommon = UseAxiosCommon();
+
+  useEffect(() => {
+    const fetchFeaturedClasses = async () => {
+      try {
+        const response = await axiosCommon.get('/featuredClasses');
+        setClasses(response.data);
+      } catch (error) {
+        console.error('Error fetching featured classes:', error);
+      }
+    };
+
+    fetchFeaturedClasses();
+  }, [axiosCommon]);
+
+  return (
+    <div className="container bg-teal-100 p-5 my-4">
+      <h2 className="text-3xl font-bold mb-4 text-center">Featured Classes</h2>
+      <p className='text-center'>
+        Here are some of our featured classes. These classes are popular among our users. Book your
+        slot now!
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {classes.map((classItem) => (
+          <div key={classItem._id} className="bg-white shadow-md rounded-lg p-4">
+            <img src={classItem.image} alt={classItem.class_name} className="w-full h-48 object-cover rounded-t-lg" />
+            <h3 className="text-xl font-semibold mt-2">{classItem.class_name}</h3>
+            <p className="text-gray-700 mt-2">{classItem.details}</p>
+            <p className="text-gray-600 mt-1">Total Bookings: {classItem.total_bookings}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default FeaturedClasses;

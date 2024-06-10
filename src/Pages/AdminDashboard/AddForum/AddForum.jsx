@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import logo from "../../../assets/img.png";
 import { useForm } from "react-hook-form";
+import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
+import Swal from "sweetalert2";
 const AddForum = () => {
   const {
     register,
@@ -9,9 +11,48 @@ const AddForum = () => {
     formState: { errors },
     reset,
   } = useForm();
+  const axiosSecure=UseAxiosSecure();
 
   const onSubmit = (data) => {
-    const {}=data
+    const {
+      post_name,
+      image,
+      details,
+      author_name,
+      author_image,
+      author_email,
+      other_info,
+    }=data
+    const postData={
+      post_name,
+      image,
+      details,
+      author_name,
+      author_image,
+      author_email,
+      other_info,
+    }
+    axiosSecure.post("/posts",postData).then((response)=>{
+      console.log(response.data);
+      Swal.fire({
+        title: "Success",
+        text: "Forum data added successfully",
+        icon: "success",
+        confirmButtonText: "Ok",
+      });
+      reset();
+    }).catch((error)=>{
+      console.log(error);
+      Swal.fire({
+        title: "Error",
+        text: "Something went wrong",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+      
+    }
+    )
+
 
   };
 

@@ -5,7 +5,7 @@ const UseRole = (email) => {
     const axiosCommon = UseAxiosCommon();
     console.log(email);
 
-    const { data: isAdmin, isPending: isAdminLoading } = useQuery({
+    const { data: isAdmin, isPending: isAdminLoading,refetch } = useQuery({
         queryKey: ['isAdmin', email],
         queryFn: async () => {
             try {
@@ -36,9 +36,10 @@ const UseRole = (email) => {
     const role = {
         isAdmin: isAdmin ,
         isTrainer: isTrainer,
+        
     };
 
-    return [role, isLoading];
+    return [role, isLoading, refetch];
 };
 
 export default UseRole;
