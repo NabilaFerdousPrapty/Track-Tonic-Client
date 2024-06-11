@@ -28,6 +28,7 @@ import AddnewClass from "../Pages/AdminDashboard/AddnewClass/AddnewClass";
 import AddForum from "../Pages/AdminDashboard/AddForum/AddForum";
 import ManageSlot from "../Pages/TrainerDashboard/ManageSlot/ManageSlot";
 import AddNewSlot from "../Pages/TrainerDashboard/AddNewSlot/AddNewSlot";
+import ViewAllTrainer from "../Pages/AdminDashboard/ViewAllTrainers/ViewAllTrainer";
 
 export const router = createBrowserRouter([
   {
@@ -148,7 +149,7 @@ export const router = createBrowserRouter([
         element:<Subscriber/>
       },{
         path:'allTrainers',
-        element:<AllTrainers/>
+        element:<ViewAllTrainer/>
       },{
         path:'appliedTrainer',
         element:<Appliedtrainer/>
