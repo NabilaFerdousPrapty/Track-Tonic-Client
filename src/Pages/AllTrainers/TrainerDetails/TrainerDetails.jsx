@@ -25,6 +25,7 @@ const TrainerDetails = () => {
   }, [axiosCommon, id]);
   console.log(trainer);
   
+  
   return (
     <div>
       <div>

@@ -3,14 +3,17 @@ import UseAxiosCommon from "../../../hooks/UseAxiosCommon";
 
 const Team = () => {
   const axiosCommon = UseAxiosCommon();
-  let { data: trainers = [] } = useQuery({
-    queryKey: ["trainers"],
+
+  let { data: team = [] } = useQuery({
+    queryKey: ["team"],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("trainers");
+      const { data } = await axiosCommon.get("/trainers/all");
       return data;
     },
-  });
-  trainers=trainers.slice(-3)
+  });  
+
+  team=team.slice(-3)
+  console.log(team);
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">
@@ -42,7 +45,7 @@ const Team = () => {
 
           <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-3">
            {
-            trainers.map(trainer=> <div key={trainer._id} className="flex flex-col items-center">
+            team.map(trainer=> <div key={trainer._id} className="flex flex-col items-center">
               <img
                 className="object-cover w-full rounded-xl aspect-square"
                 src={trainer.profile_image}

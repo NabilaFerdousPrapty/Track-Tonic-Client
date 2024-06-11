@@ -1,4 +1,4 @@
-import  { useEffect,  useState } from "react";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Rating } from '@smastrom/react-rating'
@@ -10,15 +10,20 @@ import "swiper/css/pagination";
 
 // import required modules
 import { EffectCoverflow, Pagination,Navigation,Autoplay } from "swiper/modules";
+import UseAxiosCommon from "../../../hooks/UseAxiosCommon";
+
+import { useQuery } from "@tanstack/react-query";
 
 const Testimonial = () => {
-  const [testimonials, setTestimonials] = useState([]);
-  useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}/reviews`)
-      .then((res) => res.json())
-      .then((data) => setTestimonials(data))
-      .catch((err) => console.log(err));
-  }, []);
+ const axiosCommon = UseAxiosCommon();
+  const { data: testimonials = [] } = useQuery({
+    queryKey: ["trainers"],
+    queryFn: async () => {
+      const { data } = await axiosCommon.get("/reviews");
+      return data;
+    },
+  });
+  
   // console.log(testimonials);
   return (
     <div>

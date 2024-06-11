@@ -12,6 +12,7 @@ const LatestCommunity = () => {
 			return data
 		},
 	})
+	
 	const sortedPosts = posts.sort(
 		(a, b) => new Date(b.posted_date) - new Date(a.posted_date),
 	)

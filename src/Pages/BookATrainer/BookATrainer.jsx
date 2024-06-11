@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import { logEvent } from "firebase/analytics";
 import useAuth from "../../hooks/UseAuth";
+import { useQuery } from "@tanstack/react-query";
 
 const BookATrainer = () => {
   const { id, date, time } = useParams();
@@ -11,19 +12,15 @@ const BookATrainer = () => {
   const navigate=useNavigate();
 
   const axiosCommon = UseAxiosCommon();
-  const [trainer, setTrainer] = useState(null);
+ 
+  const { data: trainer = [] } = useQuery({
+    queryKey: ["trainer", id],
+    queryFn: async () => {
+      const { data } = await axiosCommon.get(`trainers/${id}`);
+      return data;
+    },
+  });
 
-  useEffect(() => {
-    axiosCommon
-      .get(`trainers/${id}`)
-      .then((response) => {
-        // console.log(response.data);
-        setTrainer(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching trainer data:", error);
-      });
-  }, [axiosCommon, id]);
 
   const handleBasicMembership = () => {
     const bookingData = {

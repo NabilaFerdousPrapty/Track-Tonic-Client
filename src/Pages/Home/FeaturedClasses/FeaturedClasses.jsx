@@ -1,22 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import UseAxiosCommon from '../../../hooks/UseAxiosCommon';
+import { useQuery } from '@tanstack/react-query';
 
 const FeaturedClasses = () => {
-  const [classes, setClasses] = useState([]);
+
   const axiosCommon = UseAxiosCommon();
 
-  useEffect(() => {
-    const fetchFeaturedClasses = async () => {
-      try {
-        const response = await axiosCommon.get('/featuredClasses');
-        setClasses(response.data);
-      } catch (error) {
-        console.error('Error fetching featured classes:', error);
-      }
-    };
-
-    fetchFeaturedClasses();
-  }, [axiosCommon]);
+  const { data: classes = [] } = useQuery({
+    queryKey: ["classes"],
+    queryFn: async () => {
+      const { data } = await axiosCommon.get("/featuredClasses");
+      return data;
+    },
+  });
+  
 
   return (
     <div className="container bg-teal-100 p-5 my-4">

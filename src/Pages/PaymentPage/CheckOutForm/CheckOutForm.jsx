@@ -1,8 +1,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import { Swal } from "sweetalert2";
+import Swal from "sweetalert2"; // Correctly import SweetAlert2
 import useAuth from "../../../hooks/UseAuth";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 
 const CheckoutForm = ({ bookingData }) => {
@@ -109,7 +108,7 @@ const CheckoutForm = ({ bookingData }) => {
 
         const res = await axiosSecure.post("/payments", payment);
         console.log("Payment saved", res.data);
-        if (res.data.paymentResult.insertedId) {
+        if (res.data) {
           Swal.fire({
             icon: "success",
             title: "Payment Successful",
@@ -143,14 +142,14 @@ const CheckoutForm = ({ bookingData }) => {
         />
         <button
           type="submit"
-          className="btn btn-lg bg-[#17ACAC] text-center   p-2 mt-4 w-full  mx-auto text-white rounded-md "
+          className="btn btn-lg bg-[#17ACAC] text-center p-2 mt-4 w-full mx-auto text-white rounded-md"
           disabled={!stripe || !clientSecret}
         >
           Pay
         </button>
         <p className="text-red-600 text-xl my-4">{error}</p>
         {transactionId && (
-          <p className="text-green-400  text-xl my-4">
+          <p className="text-green-400 text-xl my-4">
             Payment successful. Payment Transition id: {transactionId}
           </p>
         )}
