@@ -8,8 +8,8 @@ import Swal from "sweetalert2";
 const SinglePost = ({ post, refetch }) => {
  
   const axiosCommon = UseAxiosCommon();
-  const role = UseRole();
-
+  const [role, isLoading] = UseRole(post.author.email);
+  console.log(post.author.email, role);
  
   const handleUpVote = (id) => {
    
@@ -55,12 +55,6 @@ const SinglePost = ({ post, refetch }) => {
         });
       });
     };
-
-
- 
-
- 
-
   const isAuthorAdmin = role.isAdmin;
   const isAuthorTrainer = role.isTrainer;
 
