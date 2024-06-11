@@ -6,14 +6,13 @@ import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import Swal from "sweetalert2";
 
 const SinglePost = ({ post, refetch }) => {
- 
   const axiosCommon = UseAxiosCommon();
   const [role, isLoading] = UseRole(post.author.email);
   console.log(post.author.email, role);
- 
+
   const handleUpVote = (id) => {
-   
-    axiosCommon.patch(`/posts/upvote/${id}`)
+    axiosCommon
+      .patch(`/posts/upvote/${id}`)
       .then(() => {
         Swal.fire({
           title: "Success",
@@ -32,10 +31,10 @@ const SinglePost = ({ post, refetch }) => {
           confirmButtonText: "Ok",
         });
       });
-    };
+  };
   const handleDownVote = (id) => {
-   
-    axiosCommon.patch(`/posts/downvote/${id}`)
+    axiosCommon
+      .patch(`/posts/downvote/${id}`)
       .then(() => {
         Swal.fire({
           title: "Success",
@@ -54,9 +53,20 @@ const SinglePost = ({ post, refetch }) => {
           confirmButtonText: "Ok",
         });
       });
-    };
+  };
   const isAuthorAdmin = role.isAdmin;
   const isAuthorTrainer = role.isTrainer;
+  if (isLoading) {
+    <div>
+      <section className="bg-white dark:bg-gray-900">
+        <div>
+          <h1 className="w-48 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
+          <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+          <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700"></p>
+        </div>
+      </section>
+    </div>;
+  }
 
   return (
     <div className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50 p-1 relative">
@@ -81,39 +91,38 @@ const SinglePost = ({ post, refetch }) => {
           </button>
         </Link>
         {role && (
-          <span className={`text-xs text-white p-2 rounded-2xl absolute right-0 bottom-1 ${isAuthorAdmin ? 'bg-teal-500' : isAuthorTrainer ? 'bg-blue-500' : 'bg-green-500'}`}>
-            Posted by {isAuthorAdmin ? 'Admin' : isAuthorTrainer ? 'Trainer' : 'Member'}
+          <span
+            className={`text-xs text-white p-2 rounded-2xl absolute right-0 bottom-1 ${
+              isAuthorAdmin
+                ? "bg-teal-500"
+                : isAuthorTrainer
+                ? "bg-blue-500"
+                : "bg-green-500"
+            }`}
+          >
+            Posted by{" "}
+            {isAuthorAdmin ? "Admin" : isAuthorTrainer ? "Trainer" : "Member"}
           </span>
         )}
       </div>
       <div className="flex">
         <button
           className="text-gray-200 ml-2 bg-zinc-800 p-3 rounded-lg"
-          
           onClick={() => handleUpVote(post._id)}
         >
           <p className="flex justify-between items-center">
-          <span className="text-sm">
-          {
-            post.upvote
-          }
-          </span>
-          <FaArrowUp />
+            <span className="text-sm">{post.upvote}</span>
+            <FaArrowUp />
           </p>
         </button>
-        <button 
+        <button
           className="text-gray-200 ml-2 bg-zinc-800 p-3 rounded-lg "
-         
           onClick={() => handleDownVote(post._id)}
         >
-        <p className="flex justify-between items-center">
-        <span className="text-sm">
-         {
-            post.downvote
-          }
-         </span>
-          <FaArrowDown />
-        </p>
+          <p className="flex justify-between items-center">
+            <span className="text-sm">{post.downvote}</span>
+            <FaArrowDown />
+          </p>
         </button>
       </div>
     </div>

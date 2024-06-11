@@ -7,7 +7,7 @@ const Team = () => {
   let { data: team = [] } = useQuery({
     queryKey: ["team"],
     queryFn: async () => {
-      const { data } = await axiosCommon.get("/trainers/all");
+      const { data } = await axiosCommon.get("/trainers");
       return data;
     },
   });  
