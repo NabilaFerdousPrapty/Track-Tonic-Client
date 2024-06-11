@@ -31,6 +31,8 @@ const AddForum = () => {
       author_image,
       author_email,
       other_info,
+      upvote:0,
+      downvote:0,
     }
     axiosSecure.post("/posts",postData).then((response)=>{
       console.log(response.data);

@@ -1,51 +1,68 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import UseRole from "../../hooks/UseRole";
-import { FaArrowDown, FaArrowUp, FaUps } from "react-icons/fa";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import Swal from "sweetalert2";
 
-const SinglePost = ({ post }) => {
-  const [role, isLoading] = UseRole(post.author.email);
-  console.log(post.author.email, role);
-  const axiosCommon=UseAxiosCommon();
+const SinglePost = ({ post, refetch }) => {
  
-  const [voteState, setVoteState] = useState(null); // 'upvote', 'downvote', or null
+  const axiosCommon = UseAxiosCommon();
+  const role = UseRole();
 
-  const handleVote = async (voteType) => {
-    try {
-      // Make a POST request to your backend API to register the vote
-      const response = await axiosCommon.patch(`/posts/${post._id}/vote`, { type: voteType });
-      console.log(response.data); // Log the response from the backend
-
-      // Update the local state to reflect the user's vote choice
-      setVoteState(voteType);
-      Swal
-      .fire({
-        title: "Success",
-        text: "Vote added successfully",
-        icon: "success",
-        confirmButtonText: "Ok",
+ 
+  const handleUpVote = (id) => {
+   
+    axiosCommon.patch(`/posts/upvote/${id}`)
+      .then(() => {
+        Swal.fire({
+          title: "Success",
+          text: "Upvoted successfully",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+        refetch();
+      })
+      .catch((error) => {
+        console.error(error);
+        Swal.fire({
+          title: "Error",
+          text: "Something went wrong",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
       });
-    } catch (error) {
-      console.error('Error voting:', error);
-      Swal.fire({
-        title: "Error",
-        text: "Something went wrong",
-        icon: "error",
-        confirmButtonText: "Ok",
+    };
+  const handleDownVote = (id) => {
+   
+    axiosCommon.patch(`/posts/downvote/${id}`)
+      .then(() => {
+        Swal.fire({
+          title: "Success",
+          text: "Downvoted successfully",
+          icon: "success",
+          confirmButtonText: "Ok",
+        });
+        refetch();
+      })
+      .catch((error) => {
+        console.error(error);
+        Swal.fire({
+          title: "Error",
+          text: "Something went wrong",
+          icon: "error",
+          confirmButtonText: "Ok",
+        });
       });
-      // Handle error (e.g., display an error message to the user)
-    }
-  };
+    };
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+ 
+
+ 
+
+  const isAuthorAdmin = role.isAdmin;
+  const isAuthorTrainer = role.isTrainer;
 
   return (
     <div className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50 p-1 relative">
@@ -69,37 +86,40 @@ const SinglePost = ({ post }) => {
             Read more
           </button>
         </Link>
-        {!isLoading && role.isAdmin && (
-          <span className="text-xs text-white bg-teal-500 p-2 rounded-2xl absolute right-0 bottom-1">
-            Posted by Admin
+        {role && (
+          <span className={`text-xs text-white p-2 rounded-2xl absolute right-0 bottom-1 ${isAuthorAdmin ? 'bg-teal-500' : isAuthorTrainer ? 'bg-blue-500' : 'bg-green-500'}`}>
+            Posted by {isAuthorAdmin ? 'Admin' : isAuthorTrainer ? 'Trainer' : 'Member'}
           </span>
         )}
-        {!isLoading && role.isTrainer && (
-          <span className="text-xs text-white bg-teal-500 p-2 rounded-2xl absolute right-0 bottom-1">
-            Posted by Trainer
-          </span>
-        )}
-        {!isLoading && !role.isAdmin && !role.isTrainer && (
-          <span className="text-xs text-white bg-teal-500 p-2 rounded-2xl absolute right-0 bottom-1">
-            Posted by Member{" "}
-          </span>
-        )}
-
       </div>
       <div className="flex">
         <button
-          className="text-gray-600"
-          disabled={!role || voteState === 'upvote'}
-          onClick={() => handleVote('upvote')}
+          className="text-gray-200 ml-2 bg-zinc-800 p-3 rounded-lg"
+          
+          onClick={() => handleUpVote(post._id)}
         >
-          <FaArrowUp/>
+          <p className="flex justify-between items-center">
+          <span className="text-sm">
+          {
+            post.upvote
+          }
+          </span>
+          <FaArrowUp />
+          </p>
         </button>
-        <button
-          className="text-gray-600 ml-2"
-          disabled={!role || voteState === 'downvote'}
-          onClick={() => handleVote('downvote')}
+        <button 
+          className="text-gray-200 ml-2 bg-zinc-800 p-3 rounded-lg "
+         
+          onClick={() => handleDownVote(post._id)}
         >
-          <FaArrowDown/>
+        <p className="flex justify-between items-center">
+        <span className="text-sm">
+         {
+            post.downvote
+          }
+         </span>
+          <FaArrowDown />
+        </p>
         </button>
       </div>
     </div>

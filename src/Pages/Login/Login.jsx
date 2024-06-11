@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/UseAuth";
 import Swal from "sweetalert2";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -86,6 +87,9 @@ const Login = () => {
 
   return (
     <div className="my-10 rounded-xl font-merriweather">
+       <Helmet>
+      <title>Track Tonic || Login</title>
+    </Helmet>
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-6xl">
         <div
           className="hidden bg-cover lg:block lg:w-1/2"

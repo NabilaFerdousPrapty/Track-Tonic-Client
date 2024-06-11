@@ -14,6 +14,7 @@ import { MdRateReview } from "react-icons/md";
 import { FiActivity } from "react-icons/fi";
 import UseTrainer from './../hooks/UseTrainer';
 import { MdMoreTime } from "react-icons/md";
+import { Helmet } from "react-helmet-async";
 
 const DashBoard = () => {
   const [isAdmin, isAdminLoading] = UseAdmin();
@@ -181,6 +182,9 @@ const DashBoard = () => {
 
   return (
     <div className="flex bg-gray-50 m-2 rounded-3xl h-screen">
+      <Helmet>
+      <title>Track Tonic || Dashboard</title>
+    </Helmet>
       <div className="relative md:hidden">
         <button className="absolute left-1 top-1" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           <IoMdMenu className="w-8 h-8 fill-current text-gray-800" />

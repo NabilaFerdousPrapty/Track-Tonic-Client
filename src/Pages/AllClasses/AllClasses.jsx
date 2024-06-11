@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const AllClasses = () => {
   const [classes, setClasses] = useState([]);
@@ -56,6 +57,7 @@ const AllClasses = () => {
     content = <div>No classes available.</div>;
   } else {
     content = currentClasses.map((classItem) => (
+
         <div key={classItem._id} className="flex flex-col overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 sm:flex-row mb-4">
           {/* Image */}
           <figure className="flex-1">
@@ -120,6 +122,9 @@ const AllClasses = () => {
   return (
     <div>
       <h2>All Classes</h2>
+      <Helmet>
+      <title>Track Tonic || All classes</title>
+    </Helmet>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {content}
       </div>

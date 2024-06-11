@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import useAuth from "./../../hooks/UseAuth";
 import Swal from "sweetalert2";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
+import { Helmet } from "react-helmet-async";
 const SignUp = () => {
   const axiosCommon=UseAxiosCommon();
   const { signInWithGoogle, createUser, updateUserProfile,user,setUser } = useAuth();
@@ -119,6 +120,9 @@ const SignUp = () => {
 
   return (
     <div className=" h-screen flex flex-row-reverse justify-center my-10 border-2 border-green-100 p-5 rounded-2xl font-merriweather">
+      <Helmet>
+      <title>Track Tonic || Sign Up</title>
+    </Helmet>
       <div
         className="hidden lg:block lg:w-[45%] bg-cover rounded-2xl"
         style={{

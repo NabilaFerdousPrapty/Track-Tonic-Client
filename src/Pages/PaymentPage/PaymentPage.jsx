@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import CheckoutForm from "./CheckOutForm/CheckOutForm";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
+import { Helmet } from "react-helmet-async";
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_KEY);
 const PaymentPage = () => {
   const location = useLocation();
@@ -13,6 +14,9 @@ const PaymentPage = () => {
   console.log(bookingData);
   return (
     <div>
+      <Helmet>
+      <title>Track Tonic || Payment</title>
+    </Helmet>
       <header className="bg-white dark:bg-gray-900">
         <nav className="px-6 py-4 shadow">
           <div className="lg:items-center lg:justify-between lg:flex">

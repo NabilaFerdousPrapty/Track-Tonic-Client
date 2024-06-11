@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AiOutlineLogin } from "react-icons/ai";
 import useAuth from '../../../../hooks/UseAuth';
+import { Link } from 'react-router-dom';
 const Dropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +34,7 @@ const {user, setUser,LogOut} = useAuth();
         <div
           className="absolute right-0 z-20 lg:w-64 md:w-56 w-48 py-2 mt-2 overflow-hidden origin-top-right bg-white rounded-md shadow-xl dark:bg-gray-800"
         >
-          <a href="#" className="flex items-center p-2 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
+          <li  className="flex items-center p-2 -mt-2 text-sm text-gray-600 transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white">
             <img
               className="flex-shrink-0 object-cover mx-1 rounded-full w-4 h-4"
               src={user?.photoURL || 'https://randomuser.me/api/portraits'}
@@ -47,17 +48,17 @@ const {user, setUser,LogOut} = useAuth();
                 {user?.email || 'No Email'}
               </p>
             </div>
-          </a>
+          </li>
 
           <hr className="border-gray-200 dark:border-gray-700" />
 
-          <a href="#" className="block px-2 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white text-center">
+          <Link to={'dashboard/profilePage'} className="block px-2 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white text-center">
             view profile
-          </a>
+          </Link>
 
-          <a href="#" className="block px-2 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white text-center">
+          <Link to={'dashboard/profilePage'} className="block px-2 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white text-center">
           Update Profile
-          </a>
+          </Link>
 
           <hr className="border-gray-200 dark:border-gray-700" />
 

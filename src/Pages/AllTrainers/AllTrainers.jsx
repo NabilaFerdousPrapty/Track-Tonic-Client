@@ -2,6 +2,7 @@ import React from "react";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const AllTrainers = () => {
   const axiosCommon = UseAxiosCommon();
@@ -16,6 +17,9 @@ const AllTrainers = () => {
   console.log(trainers);
   return (
     <section className="bg-white dark:bg-gray-900">
+      <Helmet>
+      <title>Track Tonic || All Trainer</title>
+    </Helmet>
       <div className="h-[32rem] bg-gray-100 dark:bg-gray-800">
         <div className="container px-6 py-10 mx-auto">
           <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">

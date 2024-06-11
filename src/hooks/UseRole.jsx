@@ -3,7 +3,7 @@ import UseAxiosCommon from "./UseAxiosCommon";
 
 const UseRole = (email) => {
     const axiosCommon = UseAxiosCommon();
-    console.log(email);
+    // console.log(email);
 
     const { data: isAdmin, isPending: isAdminLoading,refetch } = useQuery({
         queryKey: ['isAdmin', email],
