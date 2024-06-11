@@ -50,6 +50,15 @@ export const router = createBrowserRouter([
       {
         path: "/allClasses",
         element: <AllClasses />,
+        loader: async () => {
+          try {
+            const response = await axiosSecure.get("/classesCount");
+            return response.data;
+          } catch (error) {
+            console.error("Error loading classes:", error);
+            throw new Error("Failed to load classes data");
+          }
+        }
       },
       {
         path: "/allTrainers",
@@ -83,6 +92,15 @@ export const router = createBrowserRouter([
       {
         path: "/community",
         element:<Community/>,
+        loader: async () => {
+          try {
+            const response = await axiosSecure.get("/postsCount");
+            return response.data;
+          } catch (error) {
+            console.error('Error loading items:', error);
+            throw new Error('Failed to load item data');
+          }
+        }
       },{
         path: "/posts/:id",
         element: <PostDetails />,

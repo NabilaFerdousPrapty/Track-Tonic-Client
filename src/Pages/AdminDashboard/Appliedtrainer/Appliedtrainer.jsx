@@ -3,6 +3,7 @@ import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
+import UseAxiosCommon from "../../../hooks/UseAxiosCommon";
 
 const Appliedtrainer = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +28,7 @@ const Appliedtrainer = () => {
     formState: { errors },
     reset,
   } = useForm();
-
+  const axiosCommon=UseAxiosCommon();
   const handleApprove = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -40,8 +41,8 @@ const Appliedtrainer = () => {
     })
       .then((result) => {
         if (result.isConfirmed) {
-          axiosSecure
-            .patch(`/approveTrainer/${id}`)
+          
+            axiosCommon.patch(`/approveTrainer/${id}`)
             .then((response) => {
               if (response.data.modifiedCount > 0) {
                 Swal.fire({

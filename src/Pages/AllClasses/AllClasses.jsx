@@ -1,134 +1,160 @@
-
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { useQuery } from "@tanstack/react-query";
+import { FaS } from "react-icons/fa6";
+import { FaSearch } from "react-icons/fa";
 
 const AllClasses = () => {
-  const [classes, setClasses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [classesPerPage] = useState(6);
-  const [loading, setLoading] = useState(false);
   const axiosCommon = UseAxiosCommon();
+  const classesCount = useLoaderData();
+  const { count } = classesCount;
+
+  const classesPerPage = 6;
+  const numberOfPages = Math.ceil(count / classesPerPage);
+  const pages = [...Array(numberOfPages).keys()];
+
+  const { data: classes = [], refetch } = useQuery({
+    queryKey: ["classes", currentPage],
+    queryFn: async () => {
+      const { data } = await axiosCommon.get(
+        `/classes?page=${currentPage - 1}&size=${classesPerPage}`
+      );
+      return data;
+    },
+    keepPreviousData: true,
+  });
 
   useEffect(() => {
-    const fetchClasses = async () => {
-      setLoading(true);
-      try {
-        const response = await axiosCommon.get(`/classes?page=${currentPage}&limit=${classesPerPage}`);
-        setClasses(response.data);
-      } catch (error) {
-        console.error("Error fetching classes:", error);
-        // Handle error here (e.g., display an error message)
-      } finally {
-        setLoading(false);
-      }
-    };
+    refetch();
+  }, [currentPage, refetch]);
 
-    fetchClasses();
-  }, [axiosCommon, currentPage, classesPerPage]);
+  return (
+    <div>
+      <Helmet>
+        <title>Track Tonic || All classes</title>
+      </Helmet>
+      <section className="bg-teal-50 rounded-2xl py-3 my-4">
+        <div className="container px-6 py-16 mx-auto text-center">
+          <div className="max-w-lg mx-auto">
+            <h1 className="text-3xl font-semibold text-gray-800 dark:text-white lg:text-4xl">
+              <span className="text-teal-600">All Classes</span>
+            </h1>
+            <p className="mt-6 text-gray-500 dark:text-gray-300">
+              Choose from a variety of classes to suit your needs.Here are some
+              of the classes we offer. So what are you waiting for? Start your
+              fitness journey today!
+            </p>
+            <div className="flex flex-col justify-center items-center border border-teal-300 p-5 rounded-xl">
+              <button className="px-5 py-2 mt-6 text-sm font-medium leading-5 text-center text-white capitalize bg-blue-600 rounded-lg hover:bg-blue-500 lg:mx-0 lg:w-auto focus:outline-none">
+                Start 14-Day free trial
+              </button>
+             <div className="flex justify-between items-center">
+              <h2 className="text-3xl">
+                <span className="text-teal-600">Search</span> for your class
+              </h2>
+             <fieldset className="w-full space-y-1 text-gray-800">
+                <label htmlFor="Search" className="hidden">
+                  Search
+                </label>
+                <div className="relative flex items-center">
+                 <form action="">
+                 <span className="absolute inset-y-0 left-0 flex items-center pl-2">
+                    <button
+                      type="submit"
+                      title="search"
+                      className="p-1 focus:outline-none focus:ring"
+                    >
+                      <FaSearch className="w-4 h-4" />
+                    </button>
+                  </span>
+                  <input
+                    type="search"
+                    name="Search"
+                    id="Search"
+                    
+                    placeholder="Search..."
+                    className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-100 text-gray-800 focus:bg-gray-50 focus:border-indigo-600"
+                  />
+                 </form>
+                </div>
+              </fieldset>
 
-  const handleClick = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
-  const renderTrainers = (trainers) => {
-    return trainers.slice(0, 5).map((trainer) => (
-      <Link to={`/trainer/${trainer._id}`} key={trainer._id}>
-        <img
-          src={trainer.image}
-          alt={trainer.name}
-          className="w-16 h-16 rounded-full mr-2"
-        />
-      </Link>
-    ));
-  };
-
-  // Logic for pagination
-  const indexOfLastClass = currentPage * classesPerPage;
-  const indexOfFirstClass = indexOfLastClass - classesPerPage;
-  const currentClasses = classes.slice(indexOfFirstClass, indexOfLastClass);
-
-  // Render classes or loading message
-  let content;
-  if (loading) {
-    content = <div>Loading...</div>;
-  } else if (currentClasses.length === 0) {
-    content = <div>No classes available.</div>;
-  } else {
-    content = currentClasses.map((classItem) => (
-
-        <div key={classItem._id} className="flex flex-col overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 sm:flex-row mb-4">
-          {/* Image */}
-          <figure className="flex-1">
+             </div>
+              <p className="mt-3 text-sm text-gray-400">
+                No need to pay now. Cancel anytime.
+              </p>
+            </div>
+          </div>
+          <div className="flex justify-center mt-10">
             <img
-              src={classItem.image}
-              alt={classItem.class_name}
-              className="object-cover min-h-full aspect-auto"
+              className="object-cover w-full h-96 rounded-xl lg:w-4/5"
+              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1632&q=80"
+              alt="Hero"
             />
-          </figure>
-          {/* Body */}
-          <div className="flex-1 p-6 sm:mx-6 sm:px-0">
-            <header className="flex gap-4 mb-4">
-              {/* Trainer Avatar */}
-              {classItem.trainer ? (
-                <Link to={`/trainer/${classItem.trainer._id}`} className="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full">
+          </div>
+        </div>
+      </section>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {classes.map((classItem) => (
+          <div
+            key={classItem._id}
+            className="flex flex-col overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200 sm:flex-row"
+          >
+            <figure className="flex-1">
+              <img
+                src={classItem.image}
+                alt="card image"
+                className="object-cover min-h-full aspect-auto"
+              />
+            </figure>
+            <div className="flex-1 p-6 sm:mx-6 sm:px-0">
+              <header className="flex gap-4 mb-4">
+                <a
+                  href="#"
+                  className="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full"
+                >
                   <img
-                    src={classItem.trainer.image}
-                    alt={classItem.trainer.name}
-                    title={classItem.trainer.name}
+                    src={classItem.trainer_image}
+                    alt="user name"
+                    title="user name"
                     width="48"
                     height="48"
                     className="max-w-full rounded-full"
                   />
-                </Link>
-              ) : (
-                <div className="w-12 h-12 rounded-full bg-gray-200"></div> // Placeholder for missing trainer avatar
-              )}
-              {/* Class Name and Date */}
-              <div>
-                <h3 className="text-xl font-medium text-slate-700">{classItem.class_name}</h3>
-                {classItem.trainer && (
-                  <p className="text-sm text-slate-400">By {classItem.trainer.name}, {classItem.date}</p>
-                )}
-              </div>
-            </header>
-            {/* Class Description */}
-            <p>{classItem.details}</p>
+                </a>
+                <div>
+                  <h3 className="text-xl font-medium text-slate-700">
+                    {classItem.class_name}
+                  </h3>
+                  <p className="text-sm text-slate-400">
+                    By {classItem.trainer_name}, {classItem.trainer_designation}
+                  </p>
+                </div>
+              </header>
+              <p>{classItem.description}</p>
+            </div>
           </div>
-        </div>
-      ));
-      
-  }
-
-  // Render pagination buttons
-  const paginationButtons = Array.from({
-    length: Math.ceil(classes.length / classesPerPage),
-  }).map((_, index) => (
-    <button
-      key={index}
-      onClick={() => handleClick(index + 1)}
-      className={`mx-1 px-3 py-1 rounded-md ${
-        currentPage === index + 1
-          ? "bg-blue-500 text-white"
-          : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-      }`}
-    >
-      {index + 1}
-    </button>
-  ));
-
-  // Render component
-  return (
-    <div>
-      <h2>All Classes</h2>
-      <Helmet>
-      <title>Track Tonic || All classes</title>
-    </Helmet>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {content}
+        ))}
       </div>
-      <div className="mt-4 flex justify-center">{paginationButtons}</div>
+      <div className="flex justify-center mt-4">
+        {pages.map((page) => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page + 1)}
+            className={`px-3 py-1 mx-1 border rounded ${
+              currentPage === page + 1
+                ? "bg-teal-500 text-white"
+                : "bg-white text-black"
+            }`}
+          >
+            {page + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

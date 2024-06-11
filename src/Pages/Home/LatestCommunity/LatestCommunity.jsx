@@ -1,10 +1,11 @@
 import React from 'react'
 import UseAxiosCommon from '../../../hooks/UseAxiosCommon'
 import { useQuery } from '@tanstack/react-query'
-import { Link } from 'react-router-dom'
+import { Link,  } from 'react-router-dom'
 
 const LatestCommunity = () => {
 	const axiosCommon = UseAxiosCommon()
+	
 	let { data: posts = [] } = useQuery({
 		queryKey: ['posts'],
 		queryFn: async () => {

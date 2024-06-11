@@ -35,7 +35,7 @@ const UseAxiosSecure = () => {
         }, async (error) => {
             // Any status codes that falls outside the range of 2xx cause this function to trigger
             // Do something with response error
-            const errorStatus = error.response.status;
+            const errorStatus = error?.response?.status;
             if (errorStatus === 401 || errorStatus === 403) {
                 localStorage.removeItem('access-token');
                 await LogOut();

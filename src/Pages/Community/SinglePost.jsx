@@ -8,7 +8,7 @@ import Swal from "sweetalert2";
 const SinglePost = ({ post, refetch }) => {
   const axiosCommon = UseAxiosCommon();
   const [role, isLoading] = UseRole(post.author.email);
-  console.log(post.author.email, role);
+  // console.log(post.author.email, role);
 
   const handleUpVote = (id) => {
     axiosCommon
