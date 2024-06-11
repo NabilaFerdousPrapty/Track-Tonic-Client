@@ -4,11 +4,13 @@ import Swal from "sweetalert2";
 import { useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import UseAxiosCommon from "../../../hooks/UseAxiosCommon";
+import axios from "axios";
 
 const Appliedtrainer = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [currentId, setCurrentId] = useState(null);
   const axiosSecure = UseAxiosSecure();
+  const axiosCommon=UseAxiosCommon();
 
   const {
     data: trainers = [],
@@ -28,8 +30,8 @@ const Appliedtrainer = () => {
     formState: { errors },
     reset,
   } = useForm();
-  const axiosCommon=UseAxiosCommon();
-  const handleApprove = (id) => {
+
+  const handleApprove = (id, email) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -41,88 +43,92 @@ const Appliedtrainer = () => {
     })
       .then((result) => {
         if (result.isConfirmed) {
-          
-            axiosCommon.patch(`/approveTrainer/${id}`)
-            .then((response) => {
-              if (response.data.modifiedCount > 0) {
-                Swal.fire({
-                  title: "Approved!",
-                  text: "Your trainer has been approved.",
-                  icon: "success",
-                  showConfirmButton: false,
-                });
-                refetch();
-              } else {
-                Swal.fire({
-                  title: "Error!",
-                  text: "Could not approve.",
-                  icon: "error",
-                  showConfirmButton: false,
-                });
-                refetch();
-              }
-            })
-            .catch((error) => {
-              console.error("Error approving trainer:", error);
+          Promise.all([
+            axiosCommon.patch(`/approveTrainer/${id}`),
+            axiosCommon.patch(`/trainers/approve/${email}`)
+          ])
+          .then(([response1, response2]) => {
+            const modifiedCount1 = response1.data.modifiedCount;
+            const modifiedCount2 = response2.data.modifiedCount;
+           console.log("response1",response1.data);
+            console.log("response2",response2.data);
+            if (modifiedCount1 > 0 && modifiedCount2 > 0) {
+              Swal.fire({
+                title: "Approved!",
+                text: "Your trainer has been approved.",
+                icon: "success",
+                showConfirmButton: false,
+              });
+            } else {
               Swal.fire({
                 title: "Error!",
-                text: "An error occurred while approving the trainer.",
+                text: "Could not approve.",
                 icon: "error",
                 showConfirmButton: false,
               });
-              refetch();
-            });
+            }
+            refetch();
+          })
+          .catch((error) => {
+            console.error("Error approving trainer:", error);
+            Swal.fire({
+              title:'ok!',
+              showConfirmButton:false
+            })
+            refetch();
+          });
         }
       })
       .catch((error) => {
         console.error("Error with Swal confirmation:", error);
       });
   };
+  
 
   const handleReject = (id) => {
     setCurrentId(id);
     setIsOpen(true);
   };
 
-  const onSubmit = (data) => {
-    const { reason } = data;
-    const postData = { reason };
-    
-    console.log("Submitting rejection with data:", postData); // Add this line to debug
+const onSubmit = (data) => {
+  const { reason } = data;
+  const postData = { reason };
   
-    axiosSecure
-      .patch(`/rejectTrainer/${currentId}`, postData)
-      .then((response) => {
-        if (response.data.modifiedCount > 0) {
-          Swal.fire({
-            title: "Rejected!",
-            text: "Your trainer has been rejected.",
-            icon: "success",
-            showConfirmButton: false,
-          });
-          setIsOpen(false);
-          reset();
-          refetch();
-        } else {
-          Swal.fire({
-            title: "Error!",
-            text: "Could not reject.",
-            icon: "error",
-            showConfirmButton: false,
-          });
-        }
-      })
-      .catch((error) => {
-        console.error("Error rejecting trainer:", error);
+  console.log("Submitting rejection with data:", postData); // Add this line to debug
+
+  axiosSecure
+    .patch(`/rejectTrainer/${currentId}`, postData)
+    .then((response) => {
+      if (response.data.modifiedCount > 0) {
+        Swal.fire({
+          title: "Rejected!",
+          text: "Your trainer has been rejected.",
+          icon: "success",
+          showConfirmButton: false,
+        });
+        setIsOpen(false);
+        reset();
+        refetch();
+      } else {
         Swal.fire({
           title: "Error!",
-          text: "An error occurred while rejecting the trainer.",
+          text: "Could not reject.",
           icon: "error",
           showConfirmButton: false,
         });
+      }
+    })
+    .catch((error) => {
+      console.error("Error rejecting trainer:", error);
+      Swal.fire({
+        title: "Error!",
+        text: "An error occurred while rejecting the trainer.",
+        icon: "error",
+        showConfirmButton: false,
       });
-  };
-  
+    });
+};
+
   if (isLoading) {
     return (
       <div>
@@ -275,7 +281,7 @@ const Appliedtrainer = () => {
                             </button>
                             {trainer.status === "pending" && (
                               <button
-                                onClick={() => handleApprove(trainer._id)}
+                                onClick={() => handleApprove(trainer._id,trainer.email)}
                                 className="text-blue-500 transition-colors duration-200 hover:text-indigo-500 focus:outline-none"
                               >
                                 Approve
