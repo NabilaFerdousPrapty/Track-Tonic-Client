@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import UseRole from "../../hooks/UseRole";
 import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import Swal from "sweetalert2";
+import useAuth from "../../hooks/UseAuth";
 
 const SinglePost = ({ post, refetch }) => {
   const axiosCommon = UseAxiosCommon();
-  const [role, isLoading] = UseRole(post.author.email);
-  // console.log(post.author.email, role);
+  const [role, isLoading] = UseRole(post?.author?.email);
+  const { user } = useAuth();
 
   const handleUpVote = (id) => {
     axiosCommon
@@ -32,6 +33,7 @@ const SinglePost = ({ post, refetch }) => {
         });
       });
   };
+
   const handleDownVote = (id) => {
     axiosCommon
       .patch(`/posts/downvote/${id}`)
@@ -54,19 +56,40 @@ const SinglePost = ({ post, refetch }) => {
         });
       });
   };
+
   const isAuthorAdmin = role.isAdmin;
   const isAuthorTrainer = role.isTrainer;
+
   if (isLoading) {
-    <div>
-      <section className="bg-white dark:bg-gray-900">
-        <div>
-          <h1 className="w-48 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
-          <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
-          <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700"></p>
-        </div>
-      </section>
-    </div>;
+    return (
+      <div>
+        <section className="bg-white dark:bg-gray-900">
+          <div>
+            <h1 className="w-48 h-2 mx-auto bg-gray-200 rounded-lg dark:bg-gray-700"></h1>
+            <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg dark:bg-gray-700"></p>
+            <p className="w-64 h-2 mx-auto mt-4 bg-gray-200 rounded-lg sm:w-80 dark:bg-gray-700"></p>
+          </div>
+        </section>
+      </div>
+    );
   }
+
+  const handleVoteClick = (type, id) => {
+    if (!user) {
+      Swal.fire({
+        title: "Error",
+        text: "Please login to vote",
+        icon: "error",
+        confirmButtonText: "Ok",
+      });
+      return;
+    }
+    if (type === "up") {
+      handleUpVote(id);
+    } else {
+      handleDownVote(id);
+    }
+  };
 
   return (
     <div className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-gray-50 p-1 relative">
@@ -101,14 +124,14 @@ const SinglePost = ({ post, refetch }) => {
             }`}
           >
             Posted by{" "}
-            {isAuthorAdmin ? "Admin" : isAuthorTrainer ? "Trainer" : "Member"}
+            {isAuthorAdmin ? "Admin" : isAuthorTrainer ? "Trainer" : "Anonymous"}
           </span>
         )}
       </div>
       <div className="flex">
         <button
           className="text-gray-200 ml-2 bg-zinc-800 p-3 rounded-lg"
-          onClick={() => handleUpVote(post._id)}
+          onClick={() => handleVoteClick("up", post._id)}
         >
           <p className="flex justify-between items-center">
             <span className="text-sm">{post.upvote}</span>
@@ -116,8 +139,8 @@ const SinglePost = ({ post, refetch }) => {
           </p>
         </button>
         <button
-          className="text-gray-200 ml-2 bg-zinc-800 p-3 rounded-lg "
-          onClick={() => handleDownVote(post._id)}
+          className="text-gray-200 ml-2 bg-zinc-800 p-3 rounded-lg"
+          onClick={() => handleVoteClick("down", post._id)}
         >
           <p className="flex justify-between items-center">
             <span className="text-sm">{post.downvote}</span>

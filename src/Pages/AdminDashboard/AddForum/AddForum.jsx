@@ -27,12 +27,15 @@ const AddForum = () => {
       post_name,
       image,
       details,
-      author_name,
-      author_image,
-      author_email,
+      author:{
+        name:author_name,
+        image:author_image,
+        email:author_email,
+      },
       other_info,
       upvote:0,
       downvote:0,
+      posted_date:new Date().toLocaleDateString(),
     }
     axiosSecure.post("/posts",postData).then((response)=>{
       console.log(response.data);
@@ -91,7 +94,7 @@ const AddForum = () => {
                 Image URL
               </label>
               <input
-                name="image"
+                name="url"
                 {...register("image", { required: true })}
                 className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                 type="url"
@@ -154,8 +157,9 @@ const AddForum = () => {
               
                {...register("author_email", { required: true })}
                 name="author_email"
-                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
                 type="email"
+                className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300"
+                
               />
                  {errors.author_email && (
                 <span className="text-red-700">This field is required</span>

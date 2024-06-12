@@ -11,6 +11,18 @@ const skillsOptions = [
   { value: "skill3", label: "Nutritionist" },
   { value: "skill4", label: "Pilates Instructor" },
   { value: "skill5", label: "Fitness Instructor" },
+  { value: "skill6", label: "Personal Trainer" },
+  { value: "skill7", label: "Strength and Conditioning Coach" },
+  { value: "skill8", label: "Weight Loss Coach" },
+  { value: "skill9", label: "Boot Camp Instructor" },
+  { value: "skill10", label: "Cardio Kickboxing Instructor" },
+  { value: "skill11", label: "Zumba Instructor" },
+  { value: "skill12", label: "Barre Instructor" },
+  { value: "skill13", label: "Spin Instructor" },
+  { value: "skill14", label: "TRX Instructor" },
+  { value: "skill15", label: "Boxing Instructor" },
+  { value: "skill16", label: "Dance Instructor" },
+  { value: "skill17", label: "Aquatic Fitness Instructor" }
 ];
 
 const daysOptions = [
@@ -76,7 +88,7 @@ const BecomeATrainer = () => {
       designation,
       profile_image: profileImage,
       skills: skills.map((skill) => skill.label),
-      availableDays: availableDays.map((day) => day.value),
+      availableDays: availableDays,
       available_times:availableTimes,
       location,
       background_and_qualifications: qualification,

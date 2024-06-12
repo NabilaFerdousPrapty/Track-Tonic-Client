@@ -45,7 +45,7 @@ const handleDeleteTrainer = async (id,email) => {
                 const response = await axiosSecure.patch(`/trainers/delete/${email}`)
                 const response2=await axiosSecure.delete(`/trainers/remove/${id}`);
                 console.log(response2 , response);
-                if (response.data.modifiedCount > 0 && response2.data.deletedCount > 0) {
+                if (response.data.modifiedCount > 0 || response2.data.deletedCount > 0) {
                   Swal.fire({
                     title: "Deleted!",
                     text: "Trainer has been deleted.",

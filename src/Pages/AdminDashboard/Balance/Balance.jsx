@@ -1,26 +1,69 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
+import { FaMoneyBill } from "react-icons/fa";
+import { useQuery } from "@tanstack/react-query";
+import { Pie } from "react-chartjs-2";
+import { Chart, ArcElement } from "chart.js";
+
+Chart.register(ArcElement);
 
 const Balance = () => {
   const axiosSecure = UseAxiosSecure();
-  const [payment, setPayment] = useState([]);
-
-  useEffect(() => {
-    axiosSecure
-      .get("/payments")
-      .then((res) => {
-        setPayment(res.data);
-      })
-      .catch((err) => {
-        console.error("Error fetching payments:", err);
-      });
-  }, [axiosSecure]);
+  let {
+    data: payment = [],
+  } = useQuery({
+    queryKey: ["payments"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/payments");
+      return data;
+    },
+  });
 
   const totalBalance = payment.reduce(
     (total, singlePayment) => total + (singlePayment.price || 0),
     0
   );
-  console.log(payment);
+
+  const {
+    data: subscribers = [],
+  } = useQuery({
+    queryKey: ["subscribers"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/newsletter");
+      return data;
+    },
+  });
+
+  const totalSubscribers = subscribers.length;
+  const totalPaidCustomers = payment.length;
+
+  const pieChartData = {
+    labels: ["Total Subscribers", "Total Paid Members"],
+    datasets: [
+      {
+        label: "Subscribers vs Paid Members",
+        data: [totalSubscribers, totalPaidCustomers],
+        backgroundColor: ["rgba(255, 99, 132, 0.6)", "rgba(54, 162, 235, 0.6)"],
+        borderColor: ["rgba(255, 99, 132, 1)", "rgba(54, 162, 235, 1)"],
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  const pieChartOptions = {
+    plugins: {
+      legend: {
+        display: true,
+        position: "right",
+        labels: {
+          boxWidth: 20,
+          padding: 15,
+        },
+      },
+    },
+    maintainAspectRatio: false,
+  };
+
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-4xl font-bold text-center text-gray-800">
@@ -29,13 +72,52 @@ const Balance = () => {
       <p className="text-xl text-center text-gray-600 mb-6">
         Manage and track your fitness payments seamlessly
       </p>
-        
+
       <h2 className="text-3xl text-center font-merriweather text-gray-700 mb-4">
         Total Balance: ${totalBalance.toFixed(2)}
       </h2>
+      <div className="my-8 text-center">
+        <h2 className="text-2xl font-semibold text-center mb-4">
+          Subscribers vs Paid Members
+        </h2>
+        <p className="text-center text-teal-800 text-3xl py-3 ">
+         Total Paid Members:{totalPaidCustomers} |  Total Subscribers: {totalSubscribers} 
+        </p>
+        <div className="h-auto max-w-7xl flex flex-col justify-between items-center mx-auto text-center">
+          <div style={{ height: "200px", width: "100%" }}>
+            <Pie
+              data={pieChartData}
+              options={pieChartOptions}
+              style={{ height: "100%" }}
+            />
+          </div>
+        </div>
+        <div>
+          <p className="text-center text-gray-600 text-lg">
+            The above chart shows the total number of subscribers and paid
+            members
+          </p>
+          <p>
+            <span className="text-teal-800">Total Subscribers:</span> Total
+            number of subscribers who have subscribed to the newsletter
 
+          </p>
+          <p>
+          <span className="text-teal-800">Total Paid Members:</span> Total
+          number of members who have paid for the services
+          </p>
+          
+        </div>
+      </div>
+      <div>
+        <h2 className="text-2xl font-semibold text-center text-gray-800">
+          Recent Payments
+        </h2>
+
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 my-3">
         {payment.length > 0 ? (
+          ((payment = payment.slice(-6)),
           payment.map((singlePayment) => (
             <div
               key={singlePayment._id}
@@ -47,34 +129,25 @@ const Balance = () => {
                 alt="avatar"
               />
 
-              <div className="flex items-center px-6 py-3 bg-gray-900">
-                <svg
-                  aria-label="headphones icon"
-                  className="w-6 h-6 text-white fill-current"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fillRule="evenodd"
-                    clipRule="evenodd"
-                    d="M17 21C15.8954 21 15 20.1046 15 19V15C15 13.8954 15.8954 13 17 13H19V12C19 8.13401 15.866 5 12 5C8.13401 5 5 8.13401 5 12V13H7C8.10457 13 9 13.8954 9 15V19C9 20.1046 8.10457 21 7 21H3V12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12V21H17ZM19 15H17V19H19V15ZM7 15H5V19H7V15Z"
-                  />
-                </svg>
+              <div className="flex flex-col items-center px-6 py-3 bg-gray-900 justify-center text-center">
+                <FaMoneyBill className="text-white text-3xl" />
 
                 <h1 className="mx-3 text-lg font-semibold text-white">
-                  {singlePayment.package_name}
+                  <p>Transaction ID:</p>
+                  <span className="text-base">
+                    {singlePayment.transactionId}
+                  </span>
                 </h1>
               </div>
 
               <div className="px-6 py-4">
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-                  Patterson Johnson
+                  Price paid:
+                  <span className="text-base">{singlePayment.price}</span>
                 </h1>
 
                 <p className="py-2 text-gray-700 dark:text-gray-400">
-                  Full Stack maker & UI / UX Designer, love hip hop music, Author
-                  of Building UI.
+                  {singlePayment.payment_date}
                 </p>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
@@ -93,7 +166,9 @@ const Balance = () => {
                     />
                   </svg>
 
-                  <h1 className="px-2 text-sm">Meraki UI</h1>
+                  <h1 className="px-2 text-sm">
+                    {singlePayment.trainer_designation}
+                  </h1>
                 </div>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
@@ -116,7 +191,7 @@ const Balance = () => {
                     />
                   </svg>
 
-                  <h1 className="px-2 text-sm">California</h1>
+                  <h1 className="px-2 text-sm">{singlePayment.user_name}</h1>
                 </div>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200">
@@ -134,15 +209,19 @@ const Balance = () => {
                     />
                   </svg>
 
-                  <h1 className="px-2 text-sm">patterson@example.com</h1>
+                  <h1 className="px-2 text-sm">
+                    Brought by:
+                    {singlePayment.user_email}
+                  </h1>
                 </div>
               </div>
             </div>
-          ))
+          )))
         ) : (
           <p>No payments available</p>
         )}
       </div>
+     
     </div>
   );
 };

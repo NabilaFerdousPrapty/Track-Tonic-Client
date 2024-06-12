@@ -27,7 +27,7 @@ const FeaturedClasses = () => {
           <div key={classItem._id} className="bg-white shadow-md rounded-lg p-4">
             <img src={classItem.image} alt={classItem.class_name} className="w-full h-48 object-cover rounded-t-lg" />
             <h3 className="text-xl font-semibold mt-2">{classItem.class_name}</h3>
-            <p className="text-gray-700 mt-2">{classItem.details}</p>
+            <p className="text-gray-700 mt-2">{classItem.details.slice(0,180)}.....</p>
             <p className="text-gray-600 mt-1">Total Bookings: {classItem.total_bookings}</p>
           </div>
         ))}
