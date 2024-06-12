@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 
 const CheckoutForm = ({ bookingData }) => {
+ 
   const {
     trainer_name,
     trainer_image,
@@ -95,14 +96,13 @@ const CheckoutForm = ({ bookingData }) => {
           date: new Date().toLocaleDateString(),
           status: "pending",
           transactionId: paymentIntent.id,
-
+          
           trainer_name,
           trainer_image,
           trainer_designation,
           slot_name,
           package_name,
           user_name,
-          user_email,
           user_image,
         };
 

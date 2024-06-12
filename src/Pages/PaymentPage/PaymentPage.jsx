@@ -10,7 +10,7 @@ const PaymentPage = () => {
   const { bookingData } = location.state || {};
   const [isOpen, setIsOpen] = useState(false);
 
-  // Now you can use bookingData in your payment page
+
   console.log(bookingData);
   return (
     <div>

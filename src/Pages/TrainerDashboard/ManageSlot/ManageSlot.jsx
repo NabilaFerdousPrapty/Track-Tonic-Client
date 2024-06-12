@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
-import UseAxiosSecure from "./../../../hooks/UseAxiosSecure";
+import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
 import useAuth from "../../../hooks/UseAuth";
 import { useQuery } from "@tanstack/react-query";
 
 const ManageSlot = () => {
   const axiosSecure = UseAxiosSecure();
   const { user } = useAuth();
-  const { data: trainers = [], refetch } = useQuery({
+
+  const { data: trainers = [], refetch,isLoading } = useQuery({
     queryKey: ["trainers"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/trainers/email/${encodeURIComponent(user.email)}`);
+      const { data } = await axiosSecure.get(`/trainers/email/${user.email}`);
       return data;
     },
   });
-  console.log(trainers);
 
-  const handleDelete = (email, value,label) => {
+  const handleDelete = (email, value, label) => {
     const dayValue = {
       value: value,
       label: label,
@@ -32,9 +32,8 @@ const ManageSlot = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        console.log(dayValue);
         axiosSecure
-          .patch(`/deleteAvailability/${encodeURIComponent(email)}`, dayValue)
+          .patch(`/deleteAvailability/${email}`, dayValue)
           .then((response) => {
             if (response.status === 200) {
               Swal.fire(
@@ -42,7 +41,7 @@ const ManageSlot = () => {
                 `Availability for ${value} has been deleted.`,
                 "success"
               );
-              refetch(); // Refetch data to update the UI
+              refetch(); 
             } else {
               Swal.fire("Error!", "Failed to delete availability.", "error");
             }
@@ -55,42 +54,64 @@ const ManageSlot = () => {
     });
   };
 
+
+const { data: payments = [],  } = useQuery({
+    queryKey: ["payments"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/collectPayment&&userEmail=${user.email}&&trainerName=${trainer.name}&&day=${day.value}&&time=${time}`);
+      return data;
+    },
+  });
+  
   return (
-    <div>
-      {trainers.map((trainer) => (
-        <div key={trainer._id}>
-          <h1>{trainer.name}</h1>
-          <h2>{trainer.email}</h2>
-          <h3>{trainer.status}</h3>
-          {trainer.availableDays.map((day, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center justify-between w-full mt-4 bg-white rounded-lg shadow-md dark:bg-gray-800 my-2 gap-4 p-6"
-            >
-              <div>
-                <span className="text-xs font-semibold text-blue-600 uppercase dark:text-blue-400">
-                  {day.label}
-                </span>
-                <p className="text-center block mt-2 text-xl font-semibold text-gray-800 transition-colors duration-300 transform dark:text-white hover:text-gray-600 hover:underline">
-                  {trainer.available_times[index]}
-                </p>
-                <p className="gap-6 text-sm text-blue-300 mx-3 font-bold flex-col  flex justify-center items-center ">
-                  <div key={index}>
-                    <span className="flex items-center justify-center">
-                      <button
-                        className="bg-teal-800 text-white px-7 py-3 rounded-xl"
-                        onClick={() => handleDelete(trainer.email, day.value,day.label)}
-                      >
-                        Delete Day or Time
-                      </button>
-                    </span>
-                  </div>
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      ))}
+    <div className="container mx-auto p-4">
+      {trainers && trainers?.length > 0 ? (
+        trainers?.map((trainer) => (
+          <div key={trainer._id} className="my-4">
+            <h1 className="text-2xl font-bold mb-4">{trainer?.name}</h1>
+            <table className="min-w-full bg-white border border-gray-200">
+              <thead>
+                <tr>
+                  <th className="py-2 px-4 border-b">Day</th>
+                  <th className="py-2 px-4 border-b">Time</th>
+                  <th className="py-2 px-4 border-b">Action</th>
+                  <th className="py-2 px-4 border-b">Booked by</th>
+                
+                </tr>
+              </thead>
+              <tbody>
+                { trainer && trainer?.availableDays?.map((day, index) => {
+                  const time = trainer?.available_times[index];
+                 
+
+                  return (
+                    <tr key={index}>
+                      <td className="py-2 px-4 border-b text-center">{day?.label}</td>
+                      <td className="py-2 px-4 border-b text-center">{time}</td>
+                      <td className="py-2 px-4 border-b text-center">
+                        <button
+                          className="bg-teal-800 text-white px-4 py-2 rounded"
+                          onClick={() => handleDelete(trainer?.email, day?.value, day?.label)}
+                        >
+                          Delete
+                        </button>
+                      </td>
+                      <td className="py-2 px-4 border-b text-center">
+                    
+                      </td>
+                      <td className="py-2 px-4 border-b text-center">
+                       
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        ))
+      ) : (
+        <div>No trainers found</div>
+      )}
     </div>
   );
 };

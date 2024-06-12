@@ -167,12 +167,12 @@ console.log(classes);
           <div className="w-3/4">
           <figure >
               <img
-                src={classItem.image}
+                src={classItem?.image}
                 alt="card image"
                 className="object-cover object-center min-h-36 aspect-auto w-60 rounded-lg shadow-md"
               />
             </figure>
-            <SuggestedTrainers designation={classItem.trainer_designation} />
+            <SuggestedTrainers designation={classItem?.trainer_designation} />
           </div>
             <div className="flex-1 p-6 sm:mx-6 sm:px-0">
               <header className="flex gap-4 mb-4">
@@ -181,7 +181,7 @@ console.log(classes);
                   className="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full"
                 >
                   <img
-                    src={classItem.trainer_image}
+                    src={classItem?.trainer_image}
                     alt="user name"
                     title="user name"
                     width="48"
@@ -191,10 +191,10 @@ console.log(classes);
                 </a>
                 <div>
                   <h3 className="text-xl font-medium text-slate-700">
-                    {classItem.class_name}
+                    {classItem?.class_name}
                   </h3>
                   <p className="text-sm text-slate-400">
-                    By {classItem.trainer_name}, {classItem.trainer_designation}
+                    By {classItem?.trainer_name}, {classItem?.trainer_designation}
                   </p>
                 </div>
               </header>
