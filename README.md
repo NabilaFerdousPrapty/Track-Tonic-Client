@@ -31,7 +31,9 @@ You can access the live version of the Track Tonic Fitness App [here](https://tr
 - **Payment Integration**: Stripe API for payment processing
 - **Deployment**: Vercel (Frontend), Heroku (Backend), MongoDB Atlas (Database)
 
-## Getting Started
+## Admin 
+email:michael.johnson@example.com
+password:Aa@123456
 
 :
 
