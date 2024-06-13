@@ -9,24 +9,24 @@ const ManageSlot = () => {
   const { user } = useAuth();
   const [payments, setPayments] = useState({});
 
-  const { data: trainers = [], refetch, isLoading } = useQuery({
+  const { data: trainers =[], refetch, isLoading } = useQuery({
     queryKey: ["trainers"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/trainers/email/${user.email}`);
+      const { data } = await axiosSecure.get(`/trainers/email/${user?.email}`);
       return data;
     },
   });
 
   useEffect(() => {
-    if (trainers.length > 0) {
-      trainers.forEach((trainer) => {
-        trainer.availableDays.forEach(async (day, index) => {
-          const time = trainer.available_times[index];
+    if (trainers && trainers?.length > 0) {
+      trainers?.forEach((trainer) => {
+        trainer?.availableDays?.forEach(async (day, index) => {
+          const time = trainer?.available_times[index];
           const { data } = await axiosSecure.get(`/collectPayment?name=${trainer.name}&day=${day.label}&time=${time}`);
 
           setPayments((prevPayments) => ({
             ...prevPayments,
-            [`${trainer.name}_${day.value}_${time}`]: data,
+            [`${trainer?.name}_${day?.value}_${time}`]: data,
           }));
         });
       });
@@ -76,11 +76,11 @@ const ManageSlot = () => {
 // console.log(payments);
   return (
     <div className="container mx-auto p-4">
-      {trainers && trainers.length > 0 ? (
+      {trainers && trainers?.length > 0 ? (
         trainers.map((trainer) => (
           <div key={trainer._id} className="my-4">
             <h1 className="text-2xl font-bold mb-4 text-center py-4">
-              Trainer Name: {trainer.name}
+              Trainer Name: {trainer?.name}
             </h1>
             <table className="min-w-full bg-white border border-gray-200">
               <thead>
@@ -92,19 +92,19 @@ const ManageSlot = () => {
                 </tr>
               </thead>
               <tbody>
-                {trainer.availableDays.map((day, index) => {
-                  const time = trainer.available_times[index];
-                  const paymentKey = `${trainer.name}_${day.label}_${time}`;
+                {(trainer && !isLoading) && trainer?.availableDays?.map((day, index) => {
+                  const time = trainer?.available_times[index];
+                  const paymentKey = `${trainer?.name}_${day?.label}_${time}`;
                   const paymentInfo = payments[paymentKey];
 
                   return (
                     <tr key={index}>
-                      <td className="py-2 px-4 border-b text-center">Day: {day.label}</td>
+                      <td className="py-2 px-4 border-b text-center">Day: {day?.label}</td>
                       <td className="py-2 px-4 border-b text-center">On: {time}</td>
                       <td className="py-2 px-4 border-b text-center">
                         <button
                           className="bg-teal-800 text-white px-4 py-2 rounded"
-                          onClick={() => handleDelete(trainer.email, day.value, day.label)}
+                          onClick={() => handleDelete(trainer?.email, day?.value, day?.label)}
                         >
                           Delete
                         </button>
