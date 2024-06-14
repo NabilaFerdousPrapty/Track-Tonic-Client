@@ -23,7 +23,7 @@ const TrainerDetails = () => {
 
     fetchTrainer();
   }, [axiosCommon, id]);
-  console.log(trainer);
+  // console.log(trainer);
   
   
   return (

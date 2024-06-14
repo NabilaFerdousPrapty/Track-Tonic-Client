@@ -11,7 +11,7 @@ const PaymentPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
 
-  console.log(bookingData);
+  // console.log(bookingData);
   return (
     <div>
       <Helmet>

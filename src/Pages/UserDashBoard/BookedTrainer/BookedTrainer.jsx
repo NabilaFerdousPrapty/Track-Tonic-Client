@@ -41,7 +41,7 @@ const BookedTrainer = () => {
     axiosSecure
       .post("/reviews", reviewData)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         Swal.fire({
           icon: "success",
           title: "Review Added",
@@ -50,7 +50,7 @@ const BookedTrainer = () => {
         closeModal();
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -73,7 +73,7 @@ const BookedTrainer = () => {
 
     fetchData();
   }, [axiosSecure, user.email]);
-  console.log(trainers);
+  // console.log(trainers);
 
   if (loading) {
     return <div>Loading...</div>;

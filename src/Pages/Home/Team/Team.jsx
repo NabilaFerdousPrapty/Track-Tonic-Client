@@ -13,7 +13,7 @@ const Team = () => {
   });  
 
   team=team.slice(-3)
-  console.log(team);
+  // console.log(team);
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">

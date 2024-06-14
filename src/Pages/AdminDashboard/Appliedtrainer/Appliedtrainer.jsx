@@ -50,8 +50,8 @@ const Appliedtrainer = () => {
           .then(([response1, response2]) => {
             const modifiedCount1 = response1.data.modifiedCount;
             const modifiedCount2 = response2.data.modifiedCount;
-           console.log("response1",response1.data);
-            console.log("response2",response2.data);
+          //  console.log("response1",response1.data);
+          //   console.log("response2",response2.data);
             if (modifiedCount1 > 0 && modifiedCount2 > 0) {
               Swal.fire({
                 title: "Approved!",
@@ -94,7 +94,7 @@ const onSubmit = (data) => {
   const { reason } = data;
   const postData = { reason };
   
-  console.log("Submitting rejection with data:", postData); // Add this line to debug
+  // console.log("Submitting rejection with data:", postData); // Add this line to debug
 
   axiosSecure
     .patch(`/rejectTrainer/${currentId}`, postData)

@@ -38,7 +38,7 @@ const AddForum = () => {
       posted_date:new Date().toLocaleDateString(),
     }
     axiosSecure.post("/posts",postData).then((response)=>{
-      console.log(response.data);
+      // console.log(response.data);
       Swal.fire({
         title: "Success",
         text: "Forum data added successfully",

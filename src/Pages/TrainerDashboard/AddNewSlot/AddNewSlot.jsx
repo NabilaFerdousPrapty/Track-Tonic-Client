@@ -54,11 +54,11 @@ const AddNewSlot = () => {
       slot_description: slotDescription,
       
     };
-    console.log(trainerData);
+    // console.log(trainerData);
     axiosSecure
       .patch(`/updateAvailability/${user.email}`, trainerData)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         Swal.fire({
           icon: "success",
           title: "Available days and times updated",
@@ -68,7 +68,7 @@ const AddNewSlot = () => {
         setAvailableTimes([""]);
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",

@@ -1,12 +1,9 @@
-import React from "react";
+
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import UseAxiosCommon from "../../../hooks/UseAxiosCommon";
 import Swal from "sweetalert2";
 import UseAxiosSecure from "../../../hooks/UseAxiosSecure";
-import { FaCrosshairs } from "react-icons/fa";
-import { FaCross, FaDeleteLeft } from "react-icons/fa6";
 import { MdOutlineAutoDelete } from "react-icons/md";
 
 const ViewAllTrainer = () => {
@@ -44,7 +41,7 @@ const handleDeleteTrainer = async (id,email) => {
             if (result.isConfirmed) {
                 const response = await axiosSecure.patch(`/trainers/delete/${email}`)
                 const response2=await axiosSecure.delete(`/trainers/remove/${id}`);
-                console.log(response2 , response);
+                // console.log(response2 , response);
                 if (response.data.modifiedCount > 0 || response2.data.deletedCount > 0) {
                   Swal.fire({
                     title: "Deleted!",

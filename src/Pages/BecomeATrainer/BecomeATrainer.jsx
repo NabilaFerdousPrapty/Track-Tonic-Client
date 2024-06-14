@@ -42,7 +42,6 @@ const BecomeATrainer = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue,
     reset,
   } = useForm();
 
@@ -99,7 +98,7 @@ const BecomeATrainer = () => {
     axiosSecure
       .post("/trainers", trainerData)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         Swal.fire({
           icon: "success",
           title: "Application Submitted",
@@ -108,7 +107,7 @@ const BecomeATrainer = () => {
         reset();
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",
@@ -116,7 +115,7 @@ const BecomeATrainer = () => {
         });
       });
 
-    console.log(trainerData);
+    // console.log(trainerData);
     // Send trainerData to server using axiosSecure or other method
   };
 

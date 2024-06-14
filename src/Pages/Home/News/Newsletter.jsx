@@ -23,7 +23,7 @@ const Newsletter = () => {
           }
           axiosCommon.post('newsletter',user)
           .then((res)=>{
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.insertedId) {
               Swal.fire({
                 icon: "success",

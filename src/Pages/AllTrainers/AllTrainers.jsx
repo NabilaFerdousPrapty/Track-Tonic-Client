@@ -14,7 +14,7 @@ const AllTrainers = () => {
     },
   });
 
-  console.log(trainers);
+  // console.log(trainers);
   return (
     <section className="bg-white dark:bg-gray-900">
       <Helmet>

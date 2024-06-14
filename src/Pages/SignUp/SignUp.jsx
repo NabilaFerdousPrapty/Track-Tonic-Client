@@ -30,7 +30,7 @@ const SignUp = () => {
         }
         axiosCommon.post('/users',userInfo)
         .then((res)=>{
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data.insertedId) {
             Swal.fire({
               icon: "success",
@@ -82,7 +82,7 @@ const SignUp = () => {
           }
           axiosCommon.post('/users',userInfo)
           .then((res)=>{
-            console.log(res.data)
+            // console.log(res.data)
             if (res.data.insertedId) {
               Swal.fire({
                 icon: "success",

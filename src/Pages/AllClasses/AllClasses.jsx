@@ -19,12 +19,12 @@ const SuggestedTrainers = ({ designation }) => {
     },
     keepPreviousData: true,
   });
-  
+
   // Limit the number of trainers to 6
   const limitedTrainers = trainers.slice(0, 5);
 
   // console.log(limitedTrainers);
-  
+
   return (
     <div>
       <h3 className="text-lg font-semibold mt-4">Suggested Trainers:</h3>
@@ -32,22 +32,24 @@ const SuggestedTrainers = ({ designation }) => {
         {limitedTrainers.map((trainer, index) => (
           <button
             key={trainer._id}
-            className={`mt-${index !== 0 ? '4' : '0'} text-sm font-medium leading-5 text-center text-white capitalize bg-teal-200 rounded-lg hover:bg-teal-100 lg:mx-0 lg:w-auto focus:outline-none`}
+            className={`mt-${
+              index !== 0 ? "4" : "0"
+            } text-sm font-medium leading-5 text-center text-white capitalize bg-teal-200 rounded-lg hover:bg-teal-100 lg:mx-0 lg:w-auto focus:outline-none`}
           >
             <Link to={`/allTrainers/${trainer._id}`}>
-              <img src={trainer.profile_image} alt="" className="max-w-20 h-24 rounded-lg" />
+              <img
+                src={trainer.profile_image}
+                alt=""
+                className="max-w-20 h-24 rounded-lg"
+              />
             </Link>
           </button>
         ))}
-        {trainers.length === 0 && (
-          <p>No Recommendation found for this class</p>
-        )}
+        {trainers.length === 0 && <p>No Recommendation found for this class</p>}
       </ul>
     </div>
   );
-  
 };
-
 
 const AllClasses = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -72,7 +74,7 @@ const AllClasses = () => {
     },
     keepPreviousData: true,
   });
-console.log(classes);
+  // console.log(classes);
   const {
     register,
     handleSubmit,
@@ -138,7 +140,6 @@ console.log(classes);
                         placeholder="Search..."
                         className="w-32 py-2 pl-10 text-sm rounded-md sm:w-auto focus:outline-none bg-gray-100 text-gray-800 focus:bg-gray-50 focus:border-indigo-600"
                       />
-                     
                     </form>
                   </div>
                 </fieldset>
@@ -164,16 +165,16 @@ console.log(classes);
             key={classItem._id}
             className="flex flex-col overflow-hidden bg-white rounded shadow-xl text-slate-500 shadow-slate-200 sm:flex-row max-w-4xl mx-auto sm:mx-0 py-5  px-2"
           >
-          <div className="w-3/4">
-          <figure >
-              <img
-                src={classItem?.image}
-                alt="card image"
-                className="object-cover object-center min-h-36 aspect-auto w-60 rounded-lg shadow-md"
-              />
-            </figure>
-            <SuggestedTrainers designation={classItem?.trainer_designation} />
-          </div>
+            <div className="w-3/4">
+              <figure>
+                <img
+                  src={classItem?.image}
+                  alt="card image"
+                  className="object-cover object-center min-h-36 aspect-auto w-60 rounded-lg shadow-md"
+                />
+              </figure>
+              <SuggestedTrainers designation={classItem?.trainer_designation} />
+            </div>
             <div className="flex-1 p-6 sm:mx-6 sm:px-0">
               <header className="flex gap-4 mb-4">
                 <a
@@ -194,7 +195,8 @@ console.log(classes);
                     {classItem?.class_name}
                   </h3>
                   <p className="text-sm text-slate-400">
-                    By {classItem?.trainer_name}, {classItem?.trainer_designation}
+                    By {classItem?.trainer_name},{" "}
+                    {classItem?.trainer_designation}
                   </p>
                 </div>
               </header>
@@ -204,17 +206,15 @@ console.log(classes);
                   {classItem?.details.slice(0, 130)}...
                 </span>
               </p>
-             
             </div>
           </div>
         ))}
-        
       </div>
-      {
-          classes.length === 0 && (
-            <p className="text-3xl font-merriweather font-extrabold text-center text-teal-700">No classes found</p>
-          )
-        }
+      {classes.length === 0 && (
+        <p className="text-3xl font-merriweather font-extrabold text-center text-teal-700">
+          No classes found
+        </p>
+      )}
       <div className="flex justify-center mt-4">
         {pages.map((page) => (
           <button

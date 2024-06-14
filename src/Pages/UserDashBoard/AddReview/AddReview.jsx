@@ -29,11 +29,11 @@ const AddReview = () => {
       feature,
         image:photo,
     };
-    console.log(reviewData);
+    // console.log(reviewData);
     axiosSecure
       .post("/reviews", reviewData)
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         Swal.fire({
           icon: "success",
           title: "Review Added",
@@ -41,7 +41,7 @@ const AddReview = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         Swal.fire({
           icon: "error",
           title: "Oops...",

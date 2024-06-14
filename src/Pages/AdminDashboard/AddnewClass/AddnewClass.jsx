@@ -34,7 +34,7 @@ const AddNewClass = () => {
       class_type,
     }
     axiosSecure.post("/classes",postData).then((response)=>{
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data.insertedId) {
         Swal.fire({
           title: "Success",
@@ -54,7 +54,7 @@ const AddNewClass = () => {
       });
 
 
-      console.log(error);
+      // console.log(error);
     }
     )
   }

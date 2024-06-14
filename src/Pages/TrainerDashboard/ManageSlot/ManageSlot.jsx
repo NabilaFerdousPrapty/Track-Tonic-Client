@@ -67,7 +67,7 @@ const ManageSlot = () => {
             }
           })
           .catch((error) => {
-            console.log(error);
+            // console.log(error);
             Swal.fire("Error!", "Failed to delete availability.", "error");
           });
       }

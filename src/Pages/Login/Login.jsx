@@ -32,7 +32,7 @@ const Login = () => {
           text: "You have successfully logged in",
         });
         navigate(location?.state ? location.state : "/");
-        console.log(user);
+        // console.log(user);
       })
       .catch((error) => {
         const errorMessage = error.message;
@@ -57,7 +57,7 @@ const Login = () => {
         }
         axiosCommon.post('/users',userInfo)
         .then((res)=>{
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data.insertedId) {
             Swal.fire({
               icon: "success",

@@ -61,10 +61,10 @@ const CheckoutForm = ({ bookingData }) => {
     });
 
     if (error) {
-      console.log("Error in", error);
+      // console.log("Error in", error);
       setError(error.message);
     } else {
-      console.log("Payment method", paymentMethod);
+      // console.log("Payment method", paymentMethod);
       setError("");
     }
 
@@ -81,14 +81,14 @@ const CheckoutForm = ({ bookingData }) => {
       });
 
     if (paymentError) {
-      console.error("Error in payment:", paymentError);
+      // console.error("Error in payment:", paymentError);
       setError(paymentError.message);
     } else {
-      console.log("Payment confirmed:", paymentIntent);
+      // console.log("Payment confirmed:", paymentIntent);
       setError("");
       if (paymentIntent.status === "succeeded") {
-        console.log("Payment successful");
-        console.log(`${paymentIntent.id} is the payment intent id`);
+        // console.log("Payment successful");
+        // console.log(`${paymentIntent.id} is the payment intent id`);
         setTransactionId(paymentIntent.id);
         const payment = {
           email: user?.email || "Anonymous",
@@ -107,7 +107,7 @@ const CheckoutForm = ({ bookingData }) => {
         };
 
         const res = await axiosSecure.post("/payments", payment);
-        console.log("Payment saved", res.data);
+        // console.log("Payment saved", res.data);
         if (res.data) {
           Swal.fire({
             icon: "success",
