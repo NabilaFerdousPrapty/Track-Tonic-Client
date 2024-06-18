@@ -66,7 +66,7 @@ const AllClasses = () => {
   const numberOfPages = Math.ceil(count / classesPerPage);
   const pages = [...Array(numberOfPages).keys()];
   const {user}=useAuth();
-  const { data: classes = [], refetch } = useQuery({
+  const { data: classes = [], refetch,isLoading } = useQuery({
     queryKey: ["classes", currentPage, searchQuery],
     queryFn: async () => {
       const { data } = await axiosCommon.get(
@@ -131,7 +131,13 @@ const AllClasses = () => {
   useEffect(() => {
     refetch();
   }, [currentPage, searchQuery, refetch]);
-
+ if(isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-teal-500"></div>
+      </div>
+    );
+ }
   return (
     <div>
       <Helmet>
