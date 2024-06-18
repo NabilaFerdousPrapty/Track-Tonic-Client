@@ -34,13 +34,13 @@ const SuggestedTrainers = ({ designation }) => {
             key={trainer._id}
             className={`mt-${
               index !== 0 ? "4" : "0"
-            } text-sm font-medium leading-5 text-center text-white capitalize bg-teal-200 rounded-lg hover:bg-teal-100 lg:mx-0 lg:w-auto focus:outline-none`}
+            } text-sm font-medium leading-5 text-center text-white capitalize bg-teal-200 rounded-lg hover:bg-teal-100 lg:mx-1 lg:w-auto focus:outline-none `}
           >
             <Link to={`/allTrainers/${trainer._id}`}>
               <img
                 src={trainer.profile_image}
                 alt=""
-                className="max-w-20 h-24 rounded-lg"
+                className="rounded-full w-16 h-16 object-cover"
               />
             </Link>
           </button>
@@ -74,7 +74,7 @@ const AllClasses = () => {
     },
     keepPreviousData: true,
   });
-  // console.log(classes);
+  console.log(classes);
   const {
     register,
     handleSubmit,
@@ -161,51 +161,70 @@ const AllClasses = () => {
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 my-10">
         {classes.map((classItem) => (
-          <div
-            key={classItem._id}
-            className="flex flex-col overflow-hidden bg-white rounded shadow-xl text-slate-500 shadow-slate-200 sm:flex-row max-w-4xl mx-auto sm:mx-0 py-5  px-2"
-          >
-            <div className="w-3/4">
-              <figure>
+          <div className="bg-teal-50 px-4 py-2 rounded-2xl shadow-2xl" key={classItem._id}>
+            <div className="flex flex-col  overflow-hidden bg-emerald-50 rounded-xl shadow-sm text-slate-500 shadow-slate-200 sm:flex-row py-5  px-2">
+              <figure className="flex-1 relative">
                 <img
                   src={classItem?.image}
                   alt="card image"
-                  className="object-cover object-center min-h-36 aspect-auto w-60 rounded-lg shadow-md"
+                  className="object-cover min-h-full aspect-auto"
                 />
+                <p>
+                  <span className="bg-amber-200 p-2 text-sm rounded-2xl text-gray-800 absolute bottom-0 right-0 font-merriweather font-bold">
+                    {classItem?.class_type}
+                  </span>
+                </p>
               </figure>
-              <SuggestedTrainers designation={classItem?.trainer_designation} />
-            </div>
-            <div className="flex-1 p-6 sm:mx-6 sm:px-0">
-              <header className="flex gap-4 mb-4">
-                <a
-                  href="#"
-                  className="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full"
-                >
-                  <img
-                    src={classItem?.trainer_image}
-                    alt="user name"
-                    title="user name"
-                    width="48"
-                    height="48"
-                    className="max-w-full rounded-full"
-                  />
-                </a>
-                <div>
-                  <h3 className="text-xl font-medium text-slate-700">
-                    {classItem?.class_name}
-                  </h3>
-                  <p className="text-sm text-slate-400">
-                    By {classItem?.trainer_name},{" "}
-                    {classItem?.trainer_designation}
+
+              <div className="flex-1 p-6 sm:mx-6 sm:px-0">
+                <header className="flex gap-4 mb-4">
+                  <p
+                    href="#"
+                    className="relative inline-flex items-center justify-center w-12 h-12 text-white rounded-full"
+                  >
+                    <img
+                      src={classItem?.trainer_image}
+                      alt="user name"
+                      title="user name"
+                      width="48"
+                      height="48"
+                      className="max-w-full rounded-full"
+                    />
                   </p>
-                </div>
-              </header>
-              <p className="text-xl text-teal-600 font-semibold text-justify px-3">
-                Description:{" "}
-                <span className="text-sm text-gray-800">
-                  {classItem?.details.slice(0, 130)}...
-                </span>
-              </p>
+                  <div>
+                    <h3 className="text-xl font-medium text-slate-700">
+                      {classItem?.class_name}
+                    </h3>
+                    <p className="text-sm text-slate-400">
+                      {" "}
+                      By {classItem?.trainer_name}
+                      <p className="text-green-500">
+                        {classItem?.trainer_designation}
+                      </p>
+                    </p>
+                  </div>
+                </header>
+                <p>
+                  <span className="text-sm text-gray-800">
+                    {classItem?.details.slice(0, 130)}...
+                  </span>
+                  .
+                </p>
+                <p >
+                  <span className="text-teal-600 font-semibold">
+                    Total Bookings:
+                  </span>{" "}
+                  {classItem?.total_bookings} bookings
+                </p>
+              <div className="flex justify-center items-center my-4">
+              <button className="my-3 bg-teal-800 text-white px-5 py-2 rounded-2xl text-center ">
+                  Book Now
+                </button>
+              </div>
+              </div>
+            </div>
+            <div className=" py-4">
+              <SuggestedTrainers designation={classItem?.trainer_designation} />
             </div>
           </div>
         ))}
