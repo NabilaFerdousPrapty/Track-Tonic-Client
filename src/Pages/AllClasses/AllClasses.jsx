@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { Link, useLoaderData, useNavigate } from "react-router-dom";
 import UseAxiosCommon from "../../hooks/UseAxiosCommon";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -6,9 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import { FaSearch } from "react-icons/fa";
 import { useForm } from "react-hook-form";
 import { Button } from "flowbite-react";
+import Swal from "sweetalert2";
+import useAuth from './../../hooks/UseAuth';
 
 const SuggestedTrainers = ({ designation }) => {
   const axiosCommon = UseAxiosCommon();
+  
   const { data: trainers = [] } = useQuery({
     queryKey: ["trainers", designation],
     queryFn: async () => {
@@ -57,11 +60,12 @@ const AllClasses = () => {
   const axiosCommon = UseAxiosCommon();
   const classesCount = useLoaderData();
   const { count } = classesCount;
+  const navigate=useNavigate();
 
   const classesPerPage = 6;
   const numberOfPages = Math.ceil(count / classesPerPage);
   const pages = [...Array(numberOfPages).keys()];
-
+  const {user}=useAuth();
   const { data: classes = [], refetch } = useQuery({
     queryKey: ["classes", currentPage, searchQuery],
     queryFn: async () => {
@@ -87,6 +91,41 @@ const AllClasses = () => {
     setSearchQuery(search);
     setCurrentPage(1); // Reset to first page on new search
     reset();
+  };
+  const handleBookNow = (id) => {
+    if (!user) {
+      Swal.fire({
+        icon: "warning",
+        title: "Please log in to book a class",
+        showConfirmButton: true,
+      }).then(() => {
+        navigate("/login");
+      });
+      
+      return;
+    }
+
+    axiosCommon.patch(`/bookClass/${id}`)
+      .then((res) => {
+        Swal.fire({
+          icon: "success",
+          title: `${user?.displayName}, you have successfully booked the class!`,
+          text:"You will receive a confirmation email shortly.",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+
+        refetch();
+      })
+      .catch((err) => {
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Something went wrong!",
+        });
+
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -217,7 +256,7 @@ const AllClasses = () => {
                   {classItem?.total_bookings} bookings
                 </p>
               <div className="flex justify-center items-center my-4">
-              <button className="my-3 bg-teal-800 text-white px-5 py-2 rounded-2xl text-center ">
+              <button onClick={()=>handleBookNow(classItem._id)} className="my-3 bg-teal-800 text-white px-5 py-2 rounded-2xl text-center ">
                   Book Now
                 </button>
               </div>
