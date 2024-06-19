@@ -29,6 +29,9 @@ const Newsletter = () => {
                 icon: "success",
                 title: "Congratulation",
                 text: "You will get regularly updates from us!",
+                showConfirmButton:true,
+                confirmButtonText:"OK"
+                
               });
               reset();
               navigate('/')

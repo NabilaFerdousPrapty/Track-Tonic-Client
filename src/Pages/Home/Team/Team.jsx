@@ -4,7 +4,7 @@ import UseAxiosCommon from "../../../hooks/UseAxiosCommon";
 const Team = () => {
   const axiosCommon = UseAxiosCommon();
 
-  let { data: team = [] } = useQuery({
+  let { data: team = [],isLoading } = useQuery({
     queryKey: ["team"],
     queryFn: async () => {
       const { data } = await axiosCommon.get("/trainers");
@@ -14,6 +14,11 @@ const Team = () => {
 
   team=team.slice(-3)
   // console.log(team);
+  if (isLoading) {
+    return <div className="flex items-center justify-center h-screen">
+      <div className="w-24 h-24 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+    </div>
+  }
   return (
     <div>
       <section className="bg-white dark:bg-gray-900">

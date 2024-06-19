@@ -6,7 +6,7 @@ import { Link,  } from 'react-router-dom'
 const LatestCommunity = () => {
 	const axiosCommon = UseAxiosCommon()
 	
-	let { data: posts = [] } = useQuery({
+	let { data: posts = [],isLoading } = useQuery({
 		queryKey: ['posts'],
 		queryFn: async () => {
 			const { data } = await axiosCommon.get('/posts')
@@ -21,6 +21,13 @@ const LatestCommunity = () => {
 	posts = recentPosts
 
 	//   console.log(posts);
+	if (isLoading) {
+		return (
+			<div className='flex items-center justify-center h-screen'>
+				<div className='w-24 h-24 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin'></div>
+			</div>
+		)
+	}
 	return (
 		<div>
 			<section className='bg-gray-100 text-gray-800 rounded-2xl'>

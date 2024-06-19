@@ -6,14 +6,18 @@ import { Helmet } from "react-helmet-async";
 
 const AllTrainers = () => {
   const axiosCommon = UseAxiosCommon();
-  const { data: trainers = [] } = useQuery({
+  const { data: trainers = [] ,isLoading} = useQuery({
     queryKey: ["trainers"],
     queryFn: async () => {
       const { data } = await axiosCommon.get("trainers");
       return data;
     },
   });
-
+  if(isLoading){
+    return<div className="flex items-center justify-center h-screen">
+      <div className="w-64 h-60 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+    </div>
+  }
   // console.log(trainers);
   return (
     <section className="bg-white dark:bg-gray-900">
@@ -43,17 +47,17 @@ const AllTrainers = () => {
 
       <div className="container px-6 py-10 mx-auto -mt-72 sm:-mt-80 md:-mt-96">
         <div className="grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 xl:grid-cols-3">
-          {trainers.map((trainer) => (
+          {trainers && trainers?.map((trainer) => (
             
             <div
           
-              key={trainer._id}
+              key={trainer?._id}
               className="w-full max-w-sm overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800"
             >
             
               <img
                 className="object-contain object-center w-full h-56 bg-slate-400 "
-                src={trainer.profile_image}
+                src={trainer?.profile_image}
                 alt="avatar"
               />
 
@@ -73,19 +77,19 @@ const AllTrainers = () => {
                 </svg>
 
                 <h1 className="mx-3 text-lg font-semibold text-white">
-                  {trainer.designation}
+                  {trainer?.designation}
                 </h1>
               </div>
 
               <div className="px-6 py-4 text-center">
                 <h1 className="text-xl font-semibold text-gray-800 dark:text-white">
-                  {trainer.name}
+                  {trainer?.name}
                 </h1>
 
                 <p className="py-2 text-gray-700 dark:text-gray-400"></p>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200 justify-center">
-                  <h1 className="px-2 text-sm">Years of experience{trainer.years_of_experience}</h1>
+                  <h1 className="px-2 text-sm">Years of experience{trainer?.years_of_experience}</h1>
                 </div>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200 justify-center">
@@ -108,7 +112,7 @@ const AllTrainers = () => {
                     />
                   </svg>
 
-                  <h1 className="px-2 text-sm">{trainer.location}</h1>
+                  <h1 className="px-2 text-sm">{trainer?.location}</h1>
                 </div>
 
                 <div className="flex items-center mt-4 text-gray-700 dark:text-gray-200 justify-center">
@@ -126,10 +130,10 @@ const AllTrainers = () => {
                     />
                   </svg>
 
-                  <h1 className="px-2 text-sm">{trainer.email}</h1>
+                  <h1 className="px-2 text-sm">{trainer?.email}</h1>
                 </div>
               </div>
-              <Link to={`/allTrainers/${trainer._id}`}>
+              <Link to={`/allTrainers/${trainer?._id}`}>
                 <button className="flex items-center justify-center w-full h-12 text-sm font-medium  transition-colors duration-200 transform bg-[#17ACAC] text-white rounded-lg hover:bg-blue-400 focus:outline-none focus:ring-blue-400 focus:ring-4">
                   Know More
                 </button>

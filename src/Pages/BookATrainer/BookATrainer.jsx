@@ -13,14 +13,18 @@ const BookATrainer = () => {
 
   const axiosCommon = UseAxiosCommon();
  
-  const { data: trainer = [] } = useQuery({
+  const { data: trainer = [],isLoading } = useQuery({
     queryKey: ["trainer", id],
     queryFn: async () => {
       const { data } = await axiosCommon.get(`trainers/${id}`);
       return data;
     },
   });
-
+if (isLoading) {
+  return <div className="flex items-center justify-center h-screen">
+    <div className="w-64 h-60 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+  </div>
+}
 
   const handleBasicMembership = () => {
     const bookingData = {

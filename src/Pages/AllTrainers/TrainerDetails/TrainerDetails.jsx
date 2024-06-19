@@ -8,6 +8,7 @@ const TrainerDetails = () => {
   const { user, setUser } = useAuth();
   const { id } = useParams(); // Access the dynamic route parameter (trainer ID)
   const axiosCommon = UseAxiosCommon();
+  const [loading, setLoading] = useState(true);
   const axiosSecure = UseAxiosSecure();
   const [trainer, setTrainer] = useState(null);
 
@@ -16,8 +17,10 @@ const TrainerDetails = () => {
       try {
         const { data } = await axiosCommon.get(`trainers/${id}`); // Fetch trainer data by ID
         setTrainer(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching trainer data:", error);
+        setLoading(false);
       }
     };
 
@@ -25,7 +28,11 @@ const TrainerDetails = () => {
   }, [axiosCommon, id]);
   // console.log(trainer);
   
-  
+  if(loading){
+    return<div className="flex items-center justify-center h-screen">
+      <div className="w-52 h-52 border-t-2 border-b-2 border-blue-500 rounded-full animate-spin"></div>
+    </div>
+  }
   return (
     <div>
       <div>
