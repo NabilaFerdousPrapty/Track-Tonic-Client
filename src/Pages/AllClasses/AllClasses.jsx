@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "flowbite-react";
 import Swal from "sweetalert2";
 import useAuth from './../../hooks/UseAuth';
+import noImg from '../../assets/noimage.jpg'
 
 const SuggestedTrainers = ({ designation }) => {
   const axiosCommon = UseAxiosCommon();
@@ -78,7 +79,7 @@ const AllClasses = () => {
     },
     keepPreviousData: true,
   });
-  console.log(classes);
+  // console.log(classes);
   const {
     register,
     handleSubmit,
@@ -210,7 +211,7 @@ const AllClasses = () => {
             <div className="flex flex-col  overflow-hidden bg-emerald-50 rounded-xl shadow-sm text-slate-500 shadow-slate-200 sm:flex-row py-5  px-2">
               <figure className="flex-1 relative">
                 <img
-                  src={classItem?.image}
+                  src={classItem?.image || noImg}
                   alt="card image"
                   className="object-cover min-h-full aspect-auto"
                 />

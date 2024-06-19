@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import UseAxiosCommon from '../../../hooks/UseAxiosCommon';
 import { useQuery } from '@tanstack/react-query';
-
+import noImg from '../../../assets/noimage.jpg'
 const FeaturedClasses = () => {
 
   const axiosCommon = UseAxiosCommon();
@@ -31,7 +31,7 @@ const FeaturedClasses = () => {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {classes.map((classItem) => (
           <div key={classItem?._id} className="bg-white shadow-md rounded-lg p-4">
-            <img src={classItem?.image} alt={classItem?.class_name} className="w-full h-48 object-cover rounded-t-lg" />
+            <img src={classItem?.image|| noImg} alt={classItem?.class_name} className="w-full h-48 object-cover rounded-t-lg" />
             <h3 className="text-xl font-semibold mt-2">{classItem?.class_name}</h3>
             <p className="text-gray-700 mt-2">{classItem?.details?.slice(0,180)}.....</p>
             <p className="text-gray-600 mt-1">Total Bookings: {classItem?.total_bookings}</p>
