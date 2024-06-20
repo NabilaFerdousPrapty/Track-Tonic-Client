@@ -22,7 +22,7 @@ const FeaturedClasses = () => {
   
 
   return (
-    <div className="container bg-teal-100 p-5 my-4">
+    <div className="container bg-teal-100 px-5 py-9 my-4 rounded-xl shadow-2xl">
       <h2 className="text-3xl font-bold mb-4 text-center">Featured Classes</h2>
       <p className='text-center'>
         Here are some of our featured classes. These classes are popular among our users. Book your

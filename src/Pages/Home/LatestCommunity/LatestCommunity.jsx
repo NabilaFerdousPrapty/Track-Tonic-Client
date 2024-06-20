@@ -75,12 +75,14 @@ const LatestCommunity = () => {
 						))}
 					</div>
 					<div className='flex justify-center'>
+						<Link to={"/community"}>
 						<button
 							type='button'
 							className='px-6 py-3 text-sm rounded-md hover:underline bg-gray-50 text-gray-600'
 						>
 							Load more posts...
 						</button>
+						</Link>
 					</div>
 				</div>
 			</section>
