@@ -27,7 +27,7 @@ const DashBoard = () => {
       <li className="rounded-sm">
         <NavLink to={"yourPlan"} className="flex items-center p-2 space-x-3 rounded-md">
           <FaHome className="w-5 h-5 text-gray-600" />
-          <span> Home</span>
+          <span>Dashboard Home</span>
         </NavLink>
       </li>
       <li className="rounded-sm">
@@ -75,7 +75,7 @@ const DashBoard = () => {
       <li className="rounded-sm">
         <NavLink to={'/'} className="flex items-center p-2 space-x-3 rounded-md">
           <FaBackward className="w-5 h-5 text-gray-600" />
-          <span>Back to Home</span>
+          <span>Back to Home Page</span>
         </NavLink>
       </li>
     </ul>
@@ -86,7 +86,7 @@ const DashBoard = () => {
       <li className="rounded-sm">
         <NavLink to={"yourPlan"} className="flex items-center p-2 space-x-3 rounded-md">
           <FaHome className="w-5 h-5 text-gray-600" />
-          <span> Home</span>
+          <span>Dashboard Home</span>
         </NavLink>
       </li>
       <li className="rounded-sm">
@@ -126,7 +126,7 @@ const DashBoard = () => {
       <li className="rounded-sm">
         <NavLink to={'/'} className="flex items-center p-2 space-x-3 rounded-md">
           <FaBackward className="w-5 h-5 text-gray-600" />
-          <span>Back to Home</span>
+          <span>Back to Home Page</span>
         </NavLink>
       </li>
     </ul>
@@ -137,7 +137,7 @@ const DashBoard = () => {
       <li className="rounded-sm">
         <NavLink to={"yourPlan"} className="flex items-center p-2 space-x-3 rounded-md">
           <FaHome className="w-5 h-5 text-gray-600" />
-          <span>Home</span>
+          <span>Dashboard Home</span>
         </NavLink>
       </li>
       <li className="rounded-sm">
@@ -175,7 +175,7 @@ const DashBoard = () => {
       <li className="rounded-sm">
         <NavLink to={'/'} className="flex items-center p-2 space-x-3 rounded-md">
           <FaBackward className="w-5 h-5 text-gray-600" />
-          <span>Back to Home</span>
+          <span>Back to Home Page</span>
         </NavLink>
       </li>
     </ul>

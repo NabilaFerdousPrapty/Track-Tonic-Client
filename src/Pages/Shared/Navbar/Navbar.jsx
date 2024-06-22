@@ -1,16 +1,23 @@
-import  { useState } from 'react';
-import img from '../../../assets/img.png'
-import { Link, NavLink } from 'react-router-dom';
+import { useState } from 'react';
+import img from '../../../assets/img.png';
+import { Link, NavLink, useLocation } from 'react-router-dom'; // Import useLocation from react-router-dom
 import { Button } from "flowbite-react";
 
 import Dropdown from './Dropdown/Dropdown';
 import useAuth from '../../../hooks/UseAuth';
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const {user, setUser} = useAuth();
+    const { user, setUser } = useAuth();
+    const location = useLocation(); // Use useLocation hook to get current location
+
+    // Function to determine if a NavLink is active
+    const isActiveLink = (path) => {
+        return location.pathname === path;
+    };
 
     return (
-        <nav className="relative  shadow   rounded-3xl">
+        <nav className="relative shadow rounded-3xl">
             <div className="container px-6 py-1 mx-auto">
                 <div className="lg:flex lg:items-center lg:justify-between">
                     <div className="flex items-center justify-between">
@@ -41,45 +48,57 @@ const Navbar = () => {
 
                     {/* Mobile Menu open: "block", Menu closed: "hidden" */}
                     <div
-                        className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out  lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent bg-slate-200  text-[#17ACAC] lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex items-center ${
+                        className={`absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent bg-slate-200 text-[#17ACAC] lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex items-center ${
                             isOpen ? 'translate-x-0 opacity-100' : 'opacity-0 -translate-x-full'
                         }`}
                     >
                         <div className="flex flex-col -mx-6 lg:flex-row items-center lg:mx-8">
-                            <NavLink to={'/'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">Home</NavLink>
-                            <NavLink to={'/allTrainers'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
-                            All Trainer
+                            <NavLink
+                                to={'/'}
+                                className={`px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100 dark:hover:bg-gray-700 ${isActiveLink('/') ? 'text-[#17ACAC] border-b-2 border-[#17ACAC]' : ''}`}
+                            >
+                                Home
                             </NavLink>
-                            <NavLink to={'/allClasses'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
-                            All Classes
+                            <NavLink
+                                to={'/allTrainers'}
+                                className={`px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100 dark:hover:bg-gray-700 ${isActiveLink('/allTrainers') ? 'text-[#17ACAC] border-b-2 border-[#17ACAC]' : ''}`}
+                            >
+                                All Trainer
                             </NavLink>
-                           {
-                            user && <NavLink to={'dashboard/yourPlan'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
-                            Dashboard
+                            <NavLink
+                                to={'/allClasses'}
+                                className={`px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100 dark:hover:bg-gray-700 ${isActiveLink('/allClasses') ? 'text-[#17ACAC] border-b-2 border-[#17ACAC]' : ''}`}
+                            >
+                                All Classes
                             </NavLink>
-                           }
-                            <NavLink to={'/community'} className="px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 \ hover:bg-gray-100 dark:hover:bg-gray-700">
-                            Community
+                            {
+                                user && (
+                                    <NavLink
+                                        to={'/dashboard/yourPlan'}
+                                        className={`px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100 dark:hover:bg-gray-700 ${isActiveLink('/dashboard/yourPlan') ? 'text-[#17ACAC] border-b-2 border-[#17ACAC]' : ''}`}
+                                    >
+                                        Dashboard
+                                    </NavLink>
+                                )
+                            }
+                            <NavLink
+                                to={'/community'}
+                                className={`px-3 py-2 mx-3 mt-2 transition-colors duration-300 transform rounded-md lg:mt-0 hover:bg-gray-100 dark:hover:bg-gray-700 ${isActiveLink('/community') ? 'text-[#17ACAC] border-b-2 border-[#17ACAC]' : ''}`}
+                            >
+                                Community
                             </NavLink>
-                           
-                            
-                            
                         </div>
 
                         <div className="flex items-center mt-4 lg:mt-0 justify-center gap-1">
-                          {
-                            user? <Dropdown/> : <Link to={'/login'}>
-                            <Button color="gray" type="button" className="flex items-center focus:outline-none bg-[#17ACAC] text-white " aria-label="toggle profile dropdown">
-                               
-
-                              Login
-                            </Button>
-                            </Link>
-                           
-                          }
-
-                           
-                           
+                            {
+                                user ? <Dropdown /> : (
+                                    <Link to={'/login'}>
+                                        <Button color="gray" type="button" className="flex items-center focus:outline-none bg-[#17ACAC] text-white" aria-label="toggle profile dropdown">
+                                            Login
+                                        </Button>
+                                    </Link>
+                                )
+                            }
                         </div>
                     </div>
                 </div>
