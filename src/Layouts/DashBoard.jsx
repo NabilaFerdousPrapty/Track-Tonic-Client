@@ -194,7 +194,7 @@ const DashBoard = () => {
       <div className={`fixed z-30 inset-y-0 left-0 w-80 bg-teal-100 p-3 text-gray-800 transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:relative md:translate-x-0`}>
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h2>Dashboard</h2>
+            <h2  className="font-merriweather font-extrabold text-3xl text-center mx-auto text-stone-700">Dashboard</h2>
             <button className="p-2 md:hidden" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
               <IoMdMenu className="w-5 h-5 fill-current text-gray-800" />
             </button>
